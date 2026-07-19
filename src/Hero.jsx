@@ -387,7 +387,7 @@ const Hero = () => {
         (context) => {
           const { isDesktop, isTablet } = context.conditions;
           const vh = window.innerHeight;
-          const distance = isDesktop ? vh * 4.5 : isTablet ? vh * 4 : vh * 3.5;
+          const distance = isDesktop ? vh * 4.5 : isTablet ? vh * 2.2 : vh * 1.3;
 
           const scrubTl = gsap.timeline({
             scrollTrigger: {

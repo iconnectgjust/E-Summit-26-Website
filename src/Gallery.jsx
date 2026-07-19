@@ -88,6 +88,20 @@ const Gallery = () => {
 
     calculateDistance();
 
+    const imgs = section.querySelectorAll("img");
+    let loaded = 0;
+    imgs.forEach((img) => {
+      if (img.complete) {
+        loaded++;
+      } else {
+        img.addEventListener("load", () => {
+          loaded++;
+          if (loaded === imgs.length) ScrollTrigger.refresh();
+        });
+      }
+    });
+    if (loaded === imgs.length) ScrollTrigger.refresh();
+
     gsap.to(track, {
       y: () => -calculateDistance(),
       ease: "none",
