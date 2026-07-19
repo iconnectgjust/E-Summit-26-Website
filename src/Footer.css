@@ -105,6 +105,63 @@
   color: var(--teal);
 }
 
+/* 4K */
+
+@media (min-width: 1921px) {
+  .footer {
+    padding: 90px 7% 50px;
+  }
+
+  .footer-top {
+    gap: 75px;
+  }
+
+  .footer-top,
+  .footer-bottom {
+    max-width: 1900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-column h4 {
+    font-size: 16px;
+  }
+
+  .footer-column p,
+  .footer-column li {
+    font-size: 17px;
+  }
+
+  .footer-about {
+    max-width: 540px;
+  }
+
+  .footer-socials a {
+    width: 44px;
+    height: 44px;
+  }
+
+  .footer-bottom p {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .footer {
+    padding: 110px 7% 60px;
+  }
+
+  .footer-top,
+  .footer-bottom {
+    max-width: 2300px;
+  }
+
+  .footer-column p,
+  .footer-column li {
+    font-size: 19px;
+  }
+}
+
 /* Laptop */
 
 @media (max-width: 992px) {

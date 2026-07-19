@@ -79,6 +79,64 @@
   line-height: 1.9;
 }
 
+/* 4K / very large screens */
+
+@media (min-width: 1921px) {
+  .about-section {
+    padding: 160px 9%;
+  }
+
+  .about-container {
+    max-width: 1900px;
+    margin: 0 auto;
+  }
+
+  .about-heading p {
+    font-size: 19px;
+  }
+
+  .about-heading h1 {
+    font-size: clamp(5rem, 5.5vw, 7.5rem);
+    margin-bottom: 70px;
+  }
+
+  .about-content {
+    gap: 70px;
+  }
+
+  .info-card h3 {
+    font-size: 40px;
+  }
+
+  .info-card p {
+    font-size: 20px;
+    line-height: 2;
+  }
+}
+
+@media (min-width: 2560px) {
+  .about-section {
+    padding: 200px 9%;
+  }
+
+  .about-container {
+    max-width: 2300px;
+  }
+
+  .about-heading h1 {
+    font-size: 8.5rem;
+  }
+
+  .info-card h3 {
+    font-size: 46px;
+  }
+
+  .info-card p {
+    font-size: 23px;
+    line-height: 2;
+  }
+}
+
 /* Tablet */
 
 @media (max-width: 992px) {

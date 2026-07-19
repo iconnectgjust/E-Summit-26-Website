@@ -260,6 +260,36 @@
 
 @media (min-width: 1800px) {
   .allnavbar {
-    padding: 0 8vw;
+    height: clamp(108px, 3.2vw + 3.5vh, 150px);
+    padding: 14px 8vw;
+  }
+
+  .logo img {
+    height: clamp(52px, 2.6vw, 72px);
+  }
+
+  .links {
+    gap: clamp(42px, 2.6vw, 60px);
+  }
+
+  .links a {
+    font-size: clamp(1rem, 0.75vw + 0.5rem, 1.3rem);
+  }
+}
+
+/* 4K */
+
+@media (min-width: 2560px) {
+  .allnavbar {
+    height: clamp(130px, 3vw + 3vh, 170px);
+    padding: 18px 7vw;
+  }
+
+  .logo img {
+    height: 84px;
+  }
+
+  .links a {
+    font-size: 1.4rem;
   }
 }

@@ -130,6 +130,107 @@
   border-top: 22px solid #00b3a4;
 }
 
+/* 4K */
+
+@media (min-width: 1921px) {
+  .journey {
+    padding: 160px 9%;
+  }
+
+  .journey-container {
+    max-width: 1900px;
+    margin: 0 auto;
+  }
+
+  .journey-heading span {
+    font-size: 19px;
+  }
+
+  .journey-heading h2 {
+    font-size: clamp(3.5rem, 4.5vw, 6.5rem);
+    margin-bottom: 90px;
+  }
+
+  .timeline {
+    max-width: 1500px;
+  }
+
+  .timeline-line {
+    width: 6px;
+  }
+
+  .timeline-item {
+    margin-bottom: 90px;
+  }
+
+  .timeline-item.left {
+    padding-right: 110px;
+  }
+
+  .timeline-item.right {
+    padding-left: 110px;
+  }
+
+  .timeline-content h3 {
+    font-size: 30px;
+  }
+
+  .timeline-content p {
+    font-size: 19px;
+    line-height: 1.8;
+  }
+
+  .timeline-icon svg {
+    font-size: 32px;
+  }
+
+  .timeline-circle {
+    width: 74px;
+    height: 74px;
+    font-size: 26px;
+  }
+
+  .timeline-item.left .timeline-circle {
+    right: -37px;
+  }
+
+  .timeline-item.right .timeline-circle {
+    left: -37px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .journey {
+    padding: 200px 9%;
+  }
+
+  .journey-container {
+    max-width: 2200px;
+  }
+
+  .journey-heading h2 {
+    font-size: 7.5rem;
+  }
+
+  .timeline {
+    max-width: 1750px;
+  }
+
+  .timeline-content h3 {
+    font-size: 34px;
+  }
+
+  .timeline-content p {
+    font-size: 21px;
+  }
+
+  .timeline-circle {
+    width: 84px;
+    height: 84px;
+    font-size: 28px;
+  }
+}
+
 /* Tablet */
 
 @media (max-width: 992px) {

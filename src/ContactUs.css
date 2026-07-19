@@ -180,6 +180,77 @@
   transform: translateX(5px);
 }
 
+/* 4K */
+
+@media (min-width: 1921px) {
+  .contact-section {
+    padding: 160px 9%;
+  }
+
+  .contact-container {
+    max-width: 1900px;
+    margin: 0 auto;
+    gap: 140px;
+  }
+
+  .contact-subtitle {
+    font-size: 19px;
+  }
+
+  .contact-left h2 {
+    font-size: clamp(5rem, 5.5vw, 7.5rem);
+    margin-bottom: 80px;
+  }
+
+  .contact-map {
+    max-width: 600px;
+    height: 360px;
+    border-width: 10px;
+  }
+
+  .contact-form {
+    padding: 56px 50px;
+  }
+
+  .input-group label {
+    font-size: 13px;
+  }
+
+  .input-group input,
+  .input-group textarea {
+    font-size: 18px;
+  }
+
+  .contact-btn {
+    font-size: 1rem;
+    padding: 20px 44px;
+    min-width: 230px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .contact-section {
+    padding: 200px 9%;
+  }
+
+  .contact-container {
+    max-width: 2300px;
+  }
+
+  .contact-left h2 {
+    font-size: 8.5rem;
+  }
+
+  .contact-map {
+    max-width: 680px;
+    height: 400px;
+  }
+
+  .contact-form {
+    padding: 64px 56px;
+  }
+}
+
 /* Tablets */
 
 @media (max-width: 992px) {

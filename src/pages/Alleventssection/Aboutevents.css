@@ -112,6 +112,76 @@
   background: #007f73;
 }
 
+/* 4K */
+
+@media (min-width: 1921px) {
+  .allevents {
+    padding: 160px 9%;
+  }
+
+  .allevents-container {
+    max-width: 1900px;
+    margin: 0 auto;
+  }
+
+  .allevents-heading span {
+    font-size: 19px;
+  }
+
+  .allevents-heading h2 {
+    font-size: 88px;
+  }
+
+  .alldivider {
+    margin: 45px 0 65px;
+  }
+
+  .allevent-row {
+    gap: 80px;
+    margin-bottom: 120px;
+  }
+
+  .allevent-content h3 {
+    font-size: 40px;
+    margin-bottom: 24px;
+  }
+
+  .allevent-content p {
+    font-size: 20px;
+    line-height: 2;
+    margin-bottom: 40px;
+  }
+
+  .allbuttons button {
+    font-size: 1rem;
+    padding: 20px 42px;
+    min-width: 230px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .allevents {
+    padding: 200px 9%;
+  }
+
+  .allevents-container {
+    max-width: 2300px;
+  }
+
+  .allevents-heading h2 {
+    font-size: 104px;
+  }
+
+  .allevent-content h3 {
+    font-size: 46px;
+  }
+
+  .allevent-content p {
+    font-size: 23px;
+    line-height: 2;
+  }
+}
+
 /* Tablet */
 
 @media (max-width: 992px) {

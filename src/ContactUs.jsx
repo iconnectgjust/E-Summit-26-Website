@@ -191,7 +191,6 @@ const ContactUs = () => {
 
         <div className="contact-form">
           <form onSubmit={handleSubmit} autoComplete="off">
-            {/* Honeypot */}
             <input
               type="checkbox"
               name="botcheck"
@@ -201,11 +200,13 @@ const ContactUs = () => {
             />
 
             <div className="input-group">
-              <label>NAME</label>
+              <label htmlFor="contact-name">NAME</label>
               <input
                 type="text"
                 name="name"
+                id="contact-name"
                 placeholder="Enter your name"
+                autoComplete="name"
                 required
                 minLength={2}
                 maxLength={40}
@@ -213,10 +214,11 @@ const ContactUs = () => {
             </div>
 
             <div className="input-group">
-              <label>E-MAIL ADDRESS</label>
+              <label htmlFor="contact-email">E-MAIL ADDRESS</label>
               <input
                 type="email"
                 name="email"
+                id="contact-email"
                 placeholder="Enter your email address"
                 autoComplete="email"
                 required
@@ -224,21 +226,25 @@ const ContactUs = () => {
             </div>
 
             <div className="input-group">
-              <label>SUBJECT</label>
+              <label htmlFor="contact-subject">SUBJECT</label>
               <input
                 type="text"
                 name="user_subject"
+                id="contact-subject"
                 placeholder="What is this regarding?"
+                autoComplete="off"
                 required
                 maxLength={80}
               />
             </div>
 
             <div className="input-group">
-              <label>MESSAGE</label>
+              <label htmlFor="contact-message">MESSAGE</label>
               <textarea
                 name="message"
+                id="contact-message"
                 placeholder="Type your message here..."
+                autoComplete="off"
                 rows={5}
                 required
                 maxLength={500}
