@@ -272,9 +272,18 @@
   }
 
   .allevent-content .allbuttons {
-    display: inline-flex;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    gap: 14px;
+  }
+
+  .allbuttons button {
+    padding: 13px 26px;
+    font-size: 13px;
+    min-width: 150px;
+    margin-bottom: 0;
   }
 
 }
@@ -308,6 +317,26 @@
   .allevent-content p {
     font-size: 15px;
     line-height: 1.7;
+  }
+
+  .allbuttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .allbuttons a {
+    width: 100%;
+    max-width: 260px;
+  }
+
+  .allbuttons button {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 12.5px;
+    min-width: unset;
+    letter-spacing: 0.4px;
   }
 
 }
