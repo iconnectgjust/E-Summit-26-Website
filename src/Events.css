@@ -1,0 +1,288 @@
+.events {
+  position: relative;
+  background: var(--off-white);
+  padding: 100px 9%;
+  overflow: hidden;
+  width: 100%;
+}
+
+.events::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:#18382f;   
+    -webkit-mask:url("./assets/esummit-pattern.svg") repeat;
+    -webkit-mask-size:2400px 40px;
+    mask:url("./assets/esummit-pattern.svg") repeat;
+    mask-size:2400px 40px;
+    opacity:.05;
+}
+
+.events-container {
+  position: relative;
+  z-index: 2;
+}
+
+.events-heading span {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #003d39;
+  margin-bottom: 8px;
+  letter-spacing: .5px;
+}
+
+.events-heading h2 {
+  font-size: clamp(2.125rem, 1.1rem + 4vw, 4.5rem);
+  color: #003d39;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(0,61,57,.18);
+  margin: 35px 0 50px;
+}
+
+.event-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  margin-bottom: 90px;
+}
+
+.reverse {
+  flex-direction: row-reverse;
+}
+
+.event-image {
+  flex: 1;
+}
+
+.event-image img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+.event-content {
+  flex: 1;
+}
+
+.event-content h3 {
+  color: #003d39;
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+.event-content p {
+  color: #214a47;
+  font-size: 17px;
+  line-height: 1.9;
+  margin-bottom: 30px;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.buttons button {
+  background: #003d39;
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  margin-bottom: 50px;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: .5px;
+  transition: .3s;
+}
+
+.buttons button:hover {
+  background: #007f73;
+}
+
+.view-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.view-btn button {
+  background: #003d39;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: .3s;
+}
+
+.view-btn button:hover {
+  background: #007f73;
+}
+
+.view-btn span {
+  font-size: 18px;
+}
+
+/* Tablet */
+
+@media (max-width: 992px) {
+
+  .events {
+    padding: 80px 7%;
+  }
+
+  .divider {
+    margin: 30px 0 40px;
+  }
+
+  .event-row {
+    gap: 35px;
+    margin-bottom: 55px;
+  }
+
+  .event-content h3 {
+    font-size: 26px;
+  }
+
+  .event-content p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .event-content button {
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+
+  .view-btn button {
+    padding: 14px 34px;
+    font-size: 15px;
+  }
+
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+  .events {
+    padding: 70px 6%;
+  }
+
+  .events-heading {
+    text-align: center;
+  }
+
+  .events-heading span {
+    font-size: 14px;
+  }
+
+  .divider {
+    margin: 28px 0 35px;
+  }
+
+  .event-row,
+  .event-row.reverse {
+    flex-direction: column;
+    gap: 28px;
+    margin-bottom: 50px;
+  }
+
+  .event-image,
+  .event-content {
+    width: 100%;
+  }
+
+  .event-image img {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .event-content {
+    text-align: center;
+  }
+
+  .event-content h3 {
+    font-size: 24px;
+    margin-bottom: 14px;
+  }
+
+  .event-content p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .event-content .buttons {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    font-size: 14px;
+  }
+
+  .view-btn {
+    margin-top: 10px;
+  }
+
+  .view-btn button {
+    padding: 13px 32px;
+    font-size: 14px;
+  }
+
+}
+
+/* Small Mobile */
+
+@media (max-width: 480px) {
+
+  .events {
+    padding: 60px 5%;
+  }
+
+  .events-heading span {
+    font-size: 13px;
+  }
+
+  .events-heading h2 {
+    line-height: 1.1;
+  }
+
+  .event-row {
+    gap: 22px;
+    margin-bottom: 40px;
+  }
+
+  .event-content h3 {
+    font-size: 21px;
+  }
+
+  .event-content p {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .event-content .buttons {
+    padding: 11px 24px;
+    font-size: 13px;
+  }
+
+  .view-btn button {
+    padding: 12px 28px;
+    font-size: 13px;
+    gap: 8px;
+  }
+
+}

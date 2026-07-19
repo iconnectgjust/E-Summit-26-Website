@@ -1,0 +1,161 @@
+.gallery-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--off-white);
+  padding: 100px 9%;
+  overflow: hidden;
+}
+
+.gallery-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #18382f;
+  -webkit-mask: url("./assets/esummit-pattern.svg") repeat;
+  -webkit-mask-size: 2400px 40px;
+  mask: url("./assets/esummit-pattern.svg") repeat;
+  mask-size: 2400px 40px;
+  opacity: .05;
+}
+
+.gallery-header {
+  position: relative;
+  z-index: 5;
+}
+
+.gallery-header span {
+  display: block;
+  color: #003d39;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .6px;
+  margin-bottom: 10px;
+}
+
+.gallery-header h2 {
+  color: #003d39;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: .9;
+  font-weight: 900;
+}
+
+.gallery-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 61, 57, .25);
+  margin: 28px 0 50px;
+}
+
+.gallery-slider {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  overflow: hidden;
+}
+
+.gallery-track {
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+  will-change: transform;
+}
+
+.gallery-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 38px;
+}
+
+.gallery-card {
+  position: relative;
+  height: 340px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #eee2ca;
+  cursor: pointer;
+  transition: .45s;
+  will-change: transform;
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: .6s;
+}
+
+.gallery-card:hover {
+  transform: translateY(-8px);
+}
+
+.gallery-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Tablet */
+
+@media (max-width: 992px) {
+  .gallery-section {
+    padding: 80px 7% 120px;
+  }
+
+  .gallery-row {
+    gap: 28px;
+  }
+
+  .gallery-card {
+    height: 300px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .gallery-section {
+    padding: 70px 6% 100px;
+  }
+
+  .gallery-row {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .gallery-header {
+    text-align: center;
+  }
+
+  .gallery-header span {
+    font-size: 14px;
+  }
+
+  .gallery-divider {
+    margin: 24px 0 35px;
+  }
+
+  .gallery-card {
+    height: 260px;
+    margin-top: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-section {
+    padding: 60px 5% 80px;
+  }
+
+  .gallery-header span {
+    font-size: 13px;
+  }
+
+  .gallery-header h2 {
+    font-size: 40px;
+  }
+
+  .gallery-card {
+    height: 220px;
+    border-radius: 8px;
+  }
+}

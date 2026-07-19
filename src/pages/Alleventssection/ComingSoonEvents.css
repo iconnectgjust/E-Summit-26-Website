@@ -1,0 +1,166 @@
+.coming-events {
+  position: relative;
+  padding: 0px 8%;
+  background: #f7f3ea;
+  overflow: hidden;
+  padding-bottom: 120px;
+}
+
+.coming-events::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:#18382f;   
+    -webkit-mask:url("../../assets/esummit-pattern.svg") repeat;
+    -webkit-mask-size:2400px 40px;
+    mask:url("../../assets/esummit-pattern.svg") repeat;
+    mask-size:2400px 40px;
+    opacity:.05;
+}
+
+.coming-events::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 240px;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(247, 242, 232, 0.08) 35%,
+    rgba(247, 242, 232, 0.22) 55%,
+    rgba(247, 242, 232, 0.5) 75%,
+    rgba(247, 242, 232, 0.82) 92%,
+    #f7f2e8 100%
+  );
+}
+
+.coming-events-container {
+  max-width: 1250px;
+  margin: auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.coming-events h2 {
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  color: #07211d;
+  margin-bottom: 22px;
+  font-weight: 700;
+}
+
+.coming-events h2 span {
+  color: var(--teal);
+}
+
+.coming-description {
+  max-width: 760px;
+  margin: auto;
+  color: #5b6664;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.coming-grid {
+  margin-top: 70px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.coming-card {
+  background: white;
+  border-radius: 18px;
+  padding: 38px 28px;
+  transition: .35s;
+  border: 1px solid rgba(0,0,0,.05);
+  box-shadow: 0 15px 35px rgba(0,0,0,.06);
+}
+
+.coming-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 50px rgba(0,0,0,.12);
+}
+
+.coming-icon {
+  width: 72px;
+  height: 72px;
+  margin: auto;
+  border-radius: 50%;
+  background: var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin-bottom: 22px;
+}
+
+.coming-card h3 {
+  color: #062520;
+  margin-bottom: 12px;
+  font-size: 1.25rem;
+}
+
+.coming-card p {
+  color: #697472;
+  line-height: 1.7;
+}
+
+.coming-badge {
+  margin-top: 60px;
+}
+
+.coming-badge span {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 40px;
+  border-radius: 50px;
+  background: var(--bg-dark);
+  color: white;
+  font-weight: 600;
+  position: relative;
+}
+
+.coming-badge span::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--teal-bright);
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0,255,136,.7);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(0,255,136,0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0,255,136,0);
+  }
+}
+
+@media (max-width: 992px) {
+  .coming-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .coming-events {
+    padding: 80px 7%;
+  }
+
+  .coming-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .coming-card {
+    padding: 32px 22px;
+  }
+}

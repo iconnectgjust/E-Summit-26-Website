@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+:root {
+  --teal: #1fbf9f;
+  --teal-bright: #5ABA9B;
+  --teal-dim: #18382f;
+  --off-white: #f7f2e8;
+  --bg-dark: #05100e;
+}

@@ -1,0 +1,167 @@
+.about-section {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-dark);
+  padding: 100px 9%;
+  width: 100%;
+}
+
+.about-section::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(255, 255, 255, 0.733); 
+    -webkit-mask:url("./assets/esummit-pattern.svg") repeat;
+    -webkit-mask-size:2400px 40px;
+    mask:url("./assets/esummit-pattern.svg") repeat;
+    mask-size:2400px 40px;
+    opacity:.03;
+}
+
+.about-container {
+  position: relative;
+  z-index: 2;
+}
+
+.about-heading p {
+  color: white;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .5px;
+  margin-bottom: 8px;
+}
+
+.about-heading h1 {
+  color: white;
+  text-transform: uppercase;
+  font-size: clamp(2.125rem, 1.1rem + 4vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: clamp(30px, 6vw, 55px);
+}
+
+.about-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 50px;
+}
+
+.about-image {
+  flex: 1.2;
+}
+
+.about-image img {
+  width: 100%;
+  display: block;
+  border-radius: 2px;
+}
+
+.about-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.info-card h3 {
+  color: white;
+  text-transform: uppercase;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.info-card p {
+  color: rgba(255,255,255,0.75);
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+/* Tablet */
+
+@media (max-width: 992px) {
+
+  .about-section {
+    padding: 80px 7%;
+  }
+
+  .about-content{
+    flex-direction:column;
+    gap: 35px;
+  }
+
+  .about-image,
+  .about-text{
+    width:100%;
+  }
+
+  .info-card h3 {
+    font-size: 26px;
+  }
+
+  .info-card p {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+}
+
+/* Mobile */
+
+@media (max-width:768px){
+
+  .about-section{
+    padding:70px 6%;
+  }
+
+  .about-heading{
+    text-align:center;
+  }
+
+  .about-heading p{
+    font-size:14px;
+  }
+
+  .about-content{
+    align-items:center;
+  }
+
+  .about-text{
+    align-items:center;
+    text-align:center;
+  }
+
+  .info-card h3{
+    font-size:24px;
+    margin-bottom: 14px;
+  }
+
+  .info-card p{
+    font-size:16px;
+    line-height: 1.8;
+  }
+
+}
+
+@media (max-width:480px){
+
+  .about-section{
+    padding:60px 5%;
+  }
+
+  .about-heading p{
+    font-size:13px;
+  }
+
+  .info-card h3{
+    font-size:21px;
+  }
+
+  .info-card p{
+    font-size:15px;
+    line-height: 1.7;
+  }
+
+}
