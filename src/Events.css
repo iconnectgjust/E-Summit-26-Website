@@ -95,11 +95,14 @@
   background: #003d39;
   color: white;
   border: none;
-  padding: 14px 30px;
+  padding: var(--btn-padding);
   margin-bottom: 50px;
   cursor: pointer;
-  font-weight: 700;
-  letter-spacing: .5px;
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  letter-spacing: var(--btn-letter-spacing);
+  min-width: var(--btn-min-width);
+  text-align: center;
   transition: .3s;
 }
 
@@ -117,12 +120,16 @@
   background: #003d39;
   color: white;
   border: none;
-  padding: 15px 40px;
+  padding: var(--btn-padding);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   cursor: pointer;
-  font-weight: 700;
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  letter-spacing: var(--btn-letter-spacing);
+  min-width: var(--btn-min-width);
   transition: .3s;
 }
 
@@ -162,13 +169,13 @@
   }
 
   .event-content button {
-    padding: 12px 24px;
-    font-size: 15px;
+    padding: var(--btn-padding);
+    font-size: var(--btn-font-size);
   }
 
   .view-btn button {
-    padding: 14px 34px;
-    font-size: 15px;
+    padding: var(--btn-padding);
+    font-size: var(--btn-font-size);
   }
 
 }
@@ -179,6 +186,11 @@
 
   .events {
     padding: 70px 6%;
+  }
+
+  .events::before {
+    -webkit-mask-size: 900px 15px;
+    mask-size: 900px 15px;
   }
 
   .events-heading {
@@ -237,11 +249,6 @@
     margin-top: 10px;
   }
 
-  .view-btn button {
-    padding: 13px 32px;
-    font-size: 14px;
-  }
-
 }
 
 /* Small Mobile */
@@ -280,8 +287,6 @@
   }
 
   .view-btn button {
-    padding: 12px 28px;
-    font-size: 13px;
     gap: 8px;
   }
 

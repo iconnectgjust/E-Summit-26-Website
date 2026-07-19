@@ -132,14 +132,14 @@
 }
 
 .contact-btn {
-  width: 175px;
-  height: 50px;
   border: none;
   background: #012b28;
   color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
+  padding: var(--btn-padding);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  letter-spacing: var(--btn-letter-spacing);
+  min-width: var(--btn-min-width);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -226,6 +226,11 @@
     padding: 65px 20px;
   }
 
+  .contact-section::before {
+    -webkit-mask-size: 900px 15px;
+    mask-size: 900px 15px;
+  }
+
   .contact-container {
     gap: 45px;
   }
@@ -273,9 +278,7 @@
   }
 
   .contact-btn {
-    width: 100%;
-    height: 46px;
-    justify-content: center;
+    align-self: flex-start;
   }
 }
 
@@ -311,10 +314,5 @@
 
   .input-group {
     margin-bottom: 16px;
-  }
-
-  .contact-btn {
-    height: 44px;
-    font-size: 11px;
   }
 }

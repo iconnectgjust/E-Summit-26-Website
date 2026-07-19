@@ -15,7 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const galleryImages = [img1, img2, img3, img4, img5, img6];
 
-// Group images into rows of 2 so the track scrolls row by row
+// Group images into rows of 2 so each row can stack on top of the last
 const galleryRows = [];
 for (let i = 0; i < galleryImages.length; i += 2) {
   galleryRows.push(galleryImages.slice(i, i + 2));
@@ -26,110 +26,150 @@ const Gallery = () => {
   const sliderRef = useRef(null);
   const trackRef = useRef(null);
 
- useGSAP(() => {
-  const section = sectionRef.current;
-  const slider = sliderRef.current;
-  const track = trackRef.current;
+  useGSAP(() => {
+    const section = sectionRef.current;
+    const slider = sliderRef.current;
+    const track = trackRef.current;
 
-  if (!section || !slider || !track) return;
+    if (!section || !slider || !track) return;
 
-  const ctx = gsap.context(() => {
-    // ---------------- Heading ----------------
+    const ctx = gsap.context(() => {
+      // ---------------- Heading ----------------
 
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
-      })
-      .from(".gallery-header span", {
-        x: -40,
-        opacity: 0,
-        duration: 0.5,
-      })
-      .from(
-        ".gallery-header h2",
-        {
-          y: 35,
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        })
+        .from(".gallery-header span", {
+          x: -40,
           opacity: 0,
-          duration: 0.6,
-        },
-        "-=0.3"
-      )
-      .from(
-        ".gallery-divider",
-        {
-          scaleX: 0,
-          transformOrigin: "left center",
           duration: 0.5,
-        },
-        "-=0.3"
-      );
+        })
+        .from(
+          ".gallery-header h2",
+          {
+            y: 35,
+            opacity: 0,
+            duration: 0.6,
+          },
+          "-=0.3"
+        )
+        .from(
+          ".gallery-divider",
+          {
+            scaleX: 0,
+            transformOrigin: "left center",
+            duration: 0.5,
+          },
+          "-=0.3"
+        );
 
-    // ---------------- Gallery Scroll ----------------
+      // ---------------- Gallery Stack ----------------
+      // Each row starts stacked directly below the previous one. As the
+      // user scrolls, a row slides up and covers whichever row came
+      // before it, so images visually land on top of the previous ones.
+      // gsap.matchMedia keeps the effect tuned per breakpoint: a full,
+      // slower stack on desktop, and a shorter, lighter version on
+      // tablets/phones so the pinned scroll doesn't feel too long.
 
-    let distance = 0;
+      const rows = gsap.utils.toArray(".gallery-row", track);
 
-    const calculateDistance = () => {
-      const lastRow = track.lastElementChild;
+      if (rows.length > 1) {
+        const mm = gsap.matchMedia();
 
-      if (!lastRow) return 0;
+        mm.add(
+          {
+            isDesktop: "(min-width: 993px)",
+            isTablet: "(min-width: 769px) and (max-width: 992px)",
+            isMobile: "(max-width: 768px)",
+          },
+          (context) => {
+            const { isMobile, isTablet } = context.conditions;
 
-      const sliderCenter = slider.clientHeight / 2;
-      const lastRowCenter =
-        lastRow.offsetTop + lastRow.offsetHeight / 2;
+            // Scroll distance per row-change and how much the covered
+            // row dims/shrinks, scaled down for smaller screens.
+            const scrollPerRow = isMobile ? 0.55 : isTablet ? 0.65 : 0.85;
+            const restScale = isMobile ? 0.97 : 0.94;
+            const restBrightness = isMobile ? 0.85 : 0.75;
 
-      distance = Math.max(0, lastRowCenter - sliderCenter);
+            // Reset rows to their stacked starting position whenever the
+            // breakpoint changes.
+            rows.forEach((row, i) => {
+              gsap.set(row, {
+                zIndex: i + 1,
+                yPercent: i === 0 ? 0 : 100,
+                scale: 1,
+                filter: "brightness(1)",
+              });
+            });
 
-      return distance;
-    };
+            const stackTl = gsap.timeline({
+              scrollTrigger: {
+                id: "gallery-stack",
+                trigger: section,
+                start: "top top",
+                end: () =>
+                  "+=" + (rows.length - 1) * window.innerHeight * scrollPerRow,
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+              },
+            });
 
-    calculateDistance();
+            rows.forEach((row, i) => {
+              if (i === 0) return;
+              const prevRow = rows[i - 1];
+              const position = i - 1;
 
-    const imgs = section.querySelectorAll("img");
-    let loaded = 0;
-    imgs.forEach((img) => {
-      if (img.complete) {
-        loaded++;
-      } else {
-        img.addEventListener("load", () => {
-          loaded++;
-          if (loaded === imgs.length) ScrollTrigger.refresh();
-        });
+              stackTl
+                .to(
+                  prevRow,
+                  {
+                    scale: restScale,
+                    filter: `brightness(${restBrightness})`,
+                    duration: 1,
+                  },
+                  position
+                )
+                .to(
+                  row,
+                  { yPercent: 0, duration: 1, ease: "power2.out" },
+                  position
+                );
+            });
+
+            // Cleanup for this breakpoint (called automatically by
+            // matchMedia when the media query stops matching).
+            return () => {
+              stackTl.scrollTrigger && stackTl.scrollTrigger.kill();
+              stackTl.kill();
+            };
+          }
+        );
       }
-    });
-    if (loaded === imgs.length) ScrollTrigger.refresh();
 
-    gsap.to(track, {
-      y: () => -calculateDistance(),
-      ease: "none",
+      const imgs = section.querySelectorAll("img");
+      let loaded = 0;
+      imgs.forEach((img) => {
+        if (img.complete) {
+          loaded++;
+        } else {
+          img.addEventListener("load", () => {
+            loaded++;
+            if (loaded === imgs.length) ScrollTrigger.refresh();
+          });
+        }
+      });
+      if (loaded === imgs.length) ScrollTrigger.refresh();
+    }, section);
 
-      scrollTrigger: {
-        id: "gallery-scroll",
-
-        trigger: section,
-
-        start: "top top",
-
-        end: () => "+=" + (distance + window.innerHeight * 0.4),
-
-        pin: true,
-
-        scrub: 1,
-
-        anticipatePin: 1,
-
-        invalidateOnRefresh: true,
-
-        onRefreshInit: calculateDistance,
-      },
-    });
-  }, section);
-
-  return () => ctx.revert();
-}, []);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section id="gallery" className="gallery-section" ref={sectionRef}>

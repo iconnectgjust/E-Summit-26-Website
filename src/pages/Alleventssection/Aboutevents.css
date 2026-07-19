@@ -27,7 +27,6 @@
 
 .allevents-heading span {
   display: block;
-  text-align: center;
   font-size: 15px;
   font-weight: 600;
   color: #003d39;
@@ -36,7 +35,6 @@
 }
 
 .allevents-heading h2 {
-  text-align: center;
   font-size: 72px;
   color: #003d39;
   line-height: 1;
@@ -99,11 +97,14 @@
   background: #003d39;
   color: white;
   border: none;
-  padding: 14px 30px;
+  padding: var(--btn-padding);
   margin-bottom: 50px;
   cursor: pointer;
-  font-weight: 700;
-  letter-spacing: .5px;
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  letter-spacing: var(--btn-letter-spacing);
+  min-width: var(--btn-min-width);
+  text-align: center;
   transition: background-color .3s ease;
 }
 
@@ -140,11 +141,6 @@
     font-size: 16px;
     line-height: 1.8;
     margin-bottom: 24px;
-  }
-
-  .allevent-content .allbuttons {
-    padding: 12px 24px;
-    font-size: 15px;
   }
 
 }
@@ -209,8 +205,6 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 28px;
-    font-size: 14px;
   }
 
 }
@@ -244,11 +238,6 @@
   .allevent-content p {
     font-size: 15px;
     line-height: 1.7;
-  }
-
-  .allevent-content .allbuttons {
-    padding: 11px 24px;
-    font-size: 13px;
   }
 
 }

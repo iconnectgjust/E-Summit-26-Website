@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import "./ComingSoonEvents.css";
+import { FaRocket, FaLightbulb, FaHandshake, FaTrophy } from "react-icons/fa";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -190,25 +191,25 @@ const ComingSoonEvents = () => {
 
         <div className="coming-grid">
           <div className="coming-card">
-            <div className="coming-icon">🚀</div>
+            <div className="coming-icon"><FaRocket /></div>
             <h3>Startup Challenges</h3>
             <p>New startup competitions are on the way.</p>
           </div>
 
           <div className="coming-card">
-            <div className="coming-icon">💡</div>
+            <div className="coming-icon"><FaLightbulb /></div>
             <h3>Innovation Workshops</h3>
             <p>Hands-on sessions with industry experts.</p>
           </div>
 
           <div className="coming-card">
-            <div className="coming-icon">🤝</div>
+            <div className="coming-icon"><FaHandshake /></div>
             <h3>Networking</h3>
             <p>Meet founders, investors and innovators.</p>
           </div>
 
           <div className="coming-card">
-            <div className="coming-icon">🏆</div>
+            <div className="coming-icon"><FaTrophy /></div>
             <h3>Competitions</h3>
             <p>Exciting contests with attractive prizes.</p>
           </div>

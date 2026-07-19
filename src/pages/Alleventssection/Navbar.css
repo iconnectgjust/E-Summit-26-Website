@@ -19,7 +19,7 @@
   z-index: 1000;
   background:
     linear-gradient(rgba(2, 8, 7, 0.95), rgba(2, 8, 7, 0.9)),
-    url("./assets/heroImage.jpeg");
+    url("../../assets/heroImage.jpeg");
   background-size: cover;
   background-position: center top;
   backdrop-filter: blur(16px);
@@ -162,10 +162,12 @@
   .allnavbar {
     height: 70px;
     padding: 0 22px;
+  }
 
+  .allnavbar.scrolled {
     background:
       linear-gradient(rgba(2, 8, 7, 0.96), rgba(2, 8, 7, 0.92)),
-      url("./assets/heroImage.jpeg");
+      url("../../assets/heroImage.jpeg");
     background-size: cover;
     background-position: center;
   }

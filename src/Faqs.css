@@ -47,6 +47,8 @@
 
 .faq-left {
   width: 34%;
+  display: flex;
+  flex-direction: column;
 }
 
 .faq-right {
@@ -76,7 +78,7 @@
 /* CARD */
 
 .contact-card {
-  margin-top: 30px;
+  margin-top: auto;
   width: 350px;
   background: #f7f2e8;
   border-radius: 10px;
@@ -195,8 +197,15 @@
     width: 100%;
   }
 
+  .faq-left {
+    align-items: center;
+    text-align: center;
+  }
+
   .contact-card {
     width: 320px;
+    margin-top: 30px;
+    margin-bottom: 20px;
   }
 }
 

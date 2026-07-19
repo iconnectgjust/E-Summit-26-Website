@@ -313,15 +313,17 @@
   margin-top: calc(var(--hero-gap-md) + clamp(2px, 0.5vh, 8px));
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 16px;
-  padding: clamp(11px, 1.75vh, 17px) clamp(18px, 2.2vw, 27px);
+  padding: var(--btn-padding);
+  min-width: var(--btn-min-width);
   border: 2px solid var(--teal-dim);
   background: rgba(10, 36, 36, 0.72);
   color: var(--teal);
   text-transform: uppercase;
-  font-size: clamp(0.78rem, 0.55vw + 0.55vh, 0.95rem);
-  font-weight: 600;
-  letter-spacing: 1px;
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  letter-spacing: var(--btn-letter-spacing);
   cursor: pointer;
   transition: 0.3s;
 }

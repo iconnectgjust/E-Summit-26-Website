@@ -90,6 +90,7 @@
   margin: auto;
   border-radius: 50%;
   background: var(--teal);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;

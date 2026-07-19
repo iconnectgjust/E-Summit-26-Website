@@ -21,4 +21,15 @@ a {
   --teal-dim: #18382f;
   --off-white: #f7f2e8;
   --bg-dark: #05100e;
+
+  /* Shared button sizing — every CTA/button across the site reads
+     from these so they stay the same size without drifting. */
+  --btn-padding: clamp(13px, 1.5vw, 15px) clamp(26px, 3vw, 34px);
+  --btn-font-size: clamp(0.78rem, 0.5vw + 0.5rem, 0.85rem);
+  --btn-font-weight: 700;
+  --btn-letter-spacing: 0.8px;
+  /* Minimum width every CTA/button reads from, so short-text buttons
+     (e.g. "RULE BOOK") match longer ones (e.g. "REGISTER NOW") in the
+     same row instead of shrinking to fit their own text. */
+  --btn-min-width: clamp(150px, 16vw, 200px);
 }
