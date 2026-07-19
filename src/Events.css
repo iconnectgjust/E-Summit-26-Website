@@ -103,7 +103,7 @@
   letter-spacing: var(--btn-letter-spacing);
   min-width: var(--btn-min-width);
   text-align: center;
-  transition: .3s;
+  transition: background-color .3s ease;
 }
 
 .buttons button:hover {
@@ -241,8 +241,6 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 12px 28px;
-    font-size: 14px;
   }
 
   .view-btn {
@@ -279,11 +277,6 @@
   .event-content p {
     font-size: 15px;
     line-height: 1.7;
-  }
-
-  .event-content .buttons {
-    padding: 11px 24px;
-    font-size: 13px;
   }
 
   .view-btn button {
