@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import "./Gallery.css";
 import img1 from "./assets/EGallery1.jpg";
-import img2 from "./assets/EGallery2.jpg";
+import img2 from "./assets/EGallery2.JPG";
 import img3 from "./assets/EGallery3.jpg";
-import img4 from "./assets/EGallery4.jpg";
-import img5 from "./assets/EGallery5.jpg";
-import img6 from "./assets/EGallery6.jpg";
+import img4 from "./assets/EGallery4.JPG";
+import img5 from "./assets/EGallery5.JPG";
+import img6 from "./assets/EGallery6.JPG";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
