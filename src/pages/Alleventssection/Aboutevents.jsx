@@ -86,6 +86,17 @@ const Aboutevents = () => {
           "-=0.45",
         )
         .from(
+          row.querySelector(".event-tag"),
+          {
+            y: 18,
+            opacity: 0,
+            scale: 0.85,
+            duration: 0.5,
+            ease: "back.out(1.8)",
+          },
+          "-=0.55",
+        )
+        .from(
           para,
           {
             y: 20,
@@ -130,6 +141,10 @@ const Aboutevents = () => {
 
           <div className="allevent-content">
             <h3>STARTUP SPOTLIGHT</h3>
+            <div className="event-tag">
+              <span className="status-dot"></span>
+              <span>INTER UNIVERSITY EVENT</span>
+            </div>
 
             <p>
               Startup Spotlight is a premier startup idea pitching competition
@@ -165,7 +180,10 @@ const Aboutevents = () => {
 
           <div className="allevent-content">
             <h3>STARTUP SPACE</h3>
-
+            <div className="event-tag">
+              <span className="status-dot"></span>
+              <span>INTER UNIVERSITY EVENT</span>
+            </div>
             <p>
               Startup Space is a platform for students to visually showcase
               their startup ideas, research innovations, or prototypes at
@@ -199,7 +217,10 @@ const Aboutevents = () => {
 
           <div className="allevent-content">
             <h3>PITCH TANK</h3>
-
+            <div className="event-tag">
+              <span className="status-dot"></span>
+              <span>INTER UNIVERSITY EVENT</span>
+            </div>
             <p>
               Pitch Tank is a high-intensity business strategy competition at
               E-Summit '26, organized by Team iConnect, PDUIIC, GJUS&T, Hisar.
@@ -225,7 +246,6 @@ const Aboutevents = () => {
             </div>
           </div>
         </div>
-  
       </div>
     </section>
   );

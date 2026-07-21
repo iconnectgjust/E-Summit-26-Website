@@ -233,7 +233,7 @@
 .hero-content {
   width: 100%;
   margin: 0 auto;
-  padding: calc(var(--hero-nav-h) + var(--hero-gap-lg)) clamp(18px, 6vw, 90px) var(--hero-gap-md);
+  padding: calc(0px clamp(18px, 6vw, 90px) var(--hero-gap-md));
   position: relative;
   z-index: 5;
   display: flex;
@@ -241,6 +241,14 @@
   align-items: flex-start;
   transform: scale(1.3) translateX(clamp(6px, 2.2vw, 34px));
   transform-origin: left center;
+}
+
+.hero-logo-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .line {
@@ -273,12 +281,14 @@
 }
 
 .hero-logo {
+  text-align: center;
   height: auto;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .hero-logo-desktop {
-  width: min(600px, 45vw, 49vh);
+  width: 820px;
+  max-width: 92%;
 }
 
 .hero-logo-mobile {
@@ -288,28 +298,28 @@
 .hero-info {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  margin-top: calc(var(--hero-gap-md) + clamp(2px, 0.4vh, 6px));
-  max-width: 620px;
+  align-items: center;
+  margin-top: calc(var(--hero-gap-sm) + clamp(2px, 0.4vh, 6px));
+  max-width: 480px;
 }
 
 .hero-info p {
   text-align: center;
   color: var(--off-white);
-  font-size: clamp(1rem, 0.75vw + 1.05vh, 1.4rem);
+  font-size: 0.8rem;
   font-weight: 300;
-  line-height: 1.35;
+  line-height: 1.3;
 }
 
 .hero-info .dates {
-  margin-top: calc(var(--hero-gap-sm) + clamp(2px, 0.4vh, 6px));
+  margin-top: calc(var(--hero-gap-sm) + 6px);
   color: var(--teal);
-  font-size: clamp(1.15rem, 0.95vw + 1.3vh, 1.85rem);
+  font-size: 0.95rem;
   font-weight: 500;
 }
 
 .cta-btn {
-  margin-top: calc(var(--hero-gap-md) + clamp(2px, 0.5vh, 8px));
+  margin-top: calc(var(--hero-gap-sm) + clamp(8px, 1.2vh, 16px));
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -442,18 +452,35 @@
     justify-content: center;
     padding-bottom: var(--hero-gap-lg);
   }
+  .hero-logo-info {
+    margin: 0 auto;
+    align-items: center;
+  }
   .hero-logo-desktop {
     display: none;
   }
+  .hero-logo {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+  }
   .hero-logo-mobile {
     display: block;
-    width: min(330px, 64vw, 45vh);
+    width: 380px;
+    max-width: 90%;
   }
   .hero-info {
-    margin: var(--hero-gap-lg) 0 0;
+    margin: var(--hero-gap-sm) 0 0;
     width: 100%;
     align-items: center;
     text-align: center;
+  }
+  .hero-info p {
+    font-size: 0.75rem;
+  }
+  .hero-info .dates {
+    font-size: 0.9rem;
   }
   .cta-btn {
     margin: calc(var(--hero-gap-md) + 4px) auto 0;
@@ -481,20 +508,49 @@
     --hero-gap-lg: clamp(14px, 2.4vh, 28px);
   }
   .hero-logo-desktop {
-    width: min(460px, 40vw, 38vh);
+    width: 480px;
+    max-width: 85%;
   }
   .hero-logo-mobile {
-    width: min(260px, 56vw, 34vh);
+    width: 260px;
+    max-width: 80%;
   }
   .hero-info p {
-    font-size: clamp(0.85rem, 0.65vw + 0.9vh, 1.15rem);
+    font-size: 0.7rem;
   }
   .hero-info .dates {
-    font-size: clamp(1rem, 0.8vw + 1vh, 1.4rem);
+    font-size: 0.8rem;
   }
   .cta-btn {
-    padding: clamp(9px, 1.3vh, 13px) clamp(15px, 1.8vw, 22px);
-    font-size: clamp(0.7rem, 0.45vw + 0.45vh, 0.82rem);
+    padding: clamp(8px, 1.1vh, 12px) clamp(14px, 1.6vw, 20px);
+    font-size: clamp(0.65rem, 0.4vw + 0.4vh, 0.78rem);
+  }
+}
+
+@media (max-height: 480px) {
+  .hero-section {
+    --hero-nav-h: clamp(52px, 4vw + 3.5vh, 74px);
+    --hero-gap-sm: clamp(4px, 0.7vh, 10px);
+    --hero-gap-md: clamp(6px, 1vh, 14px);
+    --hero-gap-lg: clamp(8px, 1.4vh, 18px);
+  }
+  .hero-logo-desktop {
+    width: 320px;
+    max-width: 80%;
+  }
+  .hero-logo-mobile {
+    width: 190px;
+    max-width: 75%;
+  }
+  .hero-info p {
+    font-size: 0.6rem;
+  }
+  .hero-info .dates {
+    font-size: 0.68rem;
+  }
+  .cta-btn {
+    padding: clamp(6px, 0.9vh, 9px) clamp(12px, 1.4vw, 16px);
+    font-size: clamp(0.58rem, 0.35vw + 0.35vh, 0.68rem);
   }
 }
 
@@ -528,9 +584,13 @@
   }
   .hero-info p {
     max-width: 650px;
+    font-size: 0.95rem;
+  }
+  .hero-info .dates {
+    font-size: 1.15rem;
   }
   .hero-logo-desktop {
-    width: min(700px, 42vw, 52vh);
+    width: 950px;
   }
   .cta-btn {
     font-size: clamp(0.95rem, 0.5vw + 0.6rem, 1.1rem);
@@ -555,14 +615,14 @@
     max-width: 1900px;
   }
   .hero-logo-desktop {
-    width: min(820px, 40vw, 55vh);
+    width: 1100px;
   }
   .hero-info p {
-    font-size: 1.6rem;
+    font-size: 1.1rem;
     max-width: 780px;
   }
   .hero-info .dates {
-    font-size: 2.1rem;
+    font-size: 1.3rem;
   }
   .cta-btn {
     font-size: 1.15rem;

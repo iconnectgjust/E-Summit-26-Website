@@ -72,17 +72,6 @@ const Footer = () => {
           start: "top 92%",
         },
       });
-
-      gsap.from(".footer-bottom h1", {
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: footerRef.current,
-          start: "top 95%",
-        },
-      });
     }, footerRef);
 
     return () => ctx.revert();
@@ -190,10 +179,6 @@ const Footer = () => {
         </div>
 
         <p>Made with &lt;3 by Team iConnect</p>
-
-        <h1>
-          E-SUMMIT<span>‘26</span>
-        </h1>
 
       </div>
 

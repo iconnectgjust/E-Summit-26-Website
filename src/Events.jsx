@@ -91,6 +91,18 @@ const Events = () => {
       );
 
       rowTl.from(
+        row.querySelector(".event-tag"),
+        {
+          y: 18,
+          opacity: 0,
+          scale: 0.85,
+          duration: 0.5,
+          ease: "back.out(1.8)",
+        },
+        "-=0.55",
+      );
+
+      rowTl.from(
         row.querySelector(".event-content p"),
         { y: 25, opacity: 0, duration: 0.9, ease: "power3.out" },
         "-=0.6",
@@ -140,7 +152,10 @@ const Events = () => {
 
           <div className="event-content">
             <h3>STARTUP SPOTLIGHT</h3>
-
+            <div className="event-tag">
+              <span className="status-dot"></span>
+              <span>Inter University Event</span>
+            </div>
             <p>
               Startup Spotlight is a premier startup idea pitching competition
               that empowers university and college students to transform
@@ -175,7 +190,10 @@ const Events = () => {
 
           <div className="event-content">
             <h3>STARTUP SPACE</h3>
-
+            <div className="event-tag">
+              <span className="status-dot"></span>
+              <span>Inter University Event</span>
+            </div>
             <p>
               Startup Space is a platform for students to visually showcase
               their startup ideas, research innovations, or prototypes at

@@ -86,8 +86,7 @@ const Hero = () => {
         direction = "forward";
         const playPromise = video.play();
         if (playPromise !== undefined) {
-          playPromise.catch(() => {
-          });
+          playPromise.catch(() => {});
         }
       } else if (!scrollingDown && direction !== "backward") {
         video.pause();
@@ -387,7 +386,7 @@ const Hero = () => {
         (context) => {
           const { isDesktop, isTablet } = context.conditions;
           const vh = window.innerHeight;
-          const distance = isDesktop ? vh * 4.5 : isTablet ? vh * 2.2 : vh * 1.3;
+          const distance = isDesktop ? vh * 3 : isTablet ? vh * 1.2 : vh * 1.3;
 
           const scrubTl = gsap.timeline({
             scrollTrigger: {
@@ -597,38 +596,40 @@ const Hero = () => {
         <div className="hero-overlay-dark" aria-hidden="true"></div>
         <div className="hero-noise" aria-hidden="true"></div>
         <div id="home" className="hero-content">
-          <img
-            src={logo}
-            className="hero-logo hero-logo-desktop"
-            alt="E-Summit'26"
-          />
-          <img
-            src={logoMobile}
-            className="hero-logo hero-logo-mobile"
-            alt="E-Summit'26"
-          />
+          <div className="hero-logo-info">
+            <div className="hero-logo">
+              <img src={logo} className="hero-logo-desktop" alt="E-Summit'26" />
+              <img
+                src={logoMobile}
+                className="hero-logo-mobile"
+                alt="E-Summit'26"
+              />
+            </div>
 
-          <div className="hero-info">
-            <p>
-              A celebration of innovation, entrepreneurship,
-              <br />
-              and the people shaping tomorrow's world.
-            </p>
+            <div className="hero-info">
+              <p>
+                A celebration of innovation, entrepreneurship,
+                <br />
+                and the people shaping tomorrow's world.
+              </p>
 
-            <p className="dates">19th - 21st August 2026</p>
+              <p className="dates">19th - 21st August 2026</p>
 
-            <button className="cta-btn">
-              Be Part of the Journey
-              <span className="arrow-box">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 640 640"
-                  fill="#14B8A6"
-                >
-                  <path d="M598.6 342.6C611.1 330.1 611.1 309.8 598.6 297.3L470.6 169.3C458.1 156.8 437.8 156.8 425.3 169.3C412.8 181.8 412.8 202.1 425.3 214.6L498.7 288L64 288C46.3 288 32 302.3 32 320C32 337.7 46.3 352 64 352L498.7 352L425.3 425.4C412.8 437.9 412.8 458.2 425.3 470.7C437.8 483.2 458.1 483.2 470.6 470.7L598.6 342.7z" />
-                </svg>
-              </span>
-            </button>
+              <Link to="/all-events">
+                <button className="cta-btn">
+                  Be Part of the Journey
+                  <span className="arrow-box">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 640 640"
+                      fill="#14B8A6"
+                    >
+                      <path d="M598.6 342.6C611.1 330.1 611.1 309.8 598.6 297.3L470.6 169.3C458.1 156.8 437.8 156.8 425.3 169.3C412.8 181.8 412.8 202.1 425.3 214.6L498.7 288L64 288C46.3 288 32 302.3 32 320C32 337.7 46.3 352 64 352L498.7 352L425.3 425.4C412.8 437.9 412.8 458.2 425.3 470.7C437.8 483.2 458.1 483.2 470.6 470.7L598.6 342.7z" />
+                    </svg>
+                  </span>
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
