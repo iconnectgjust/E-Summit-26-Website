@@ -54,7 +54,7 @@ const Sponsors = () => {
     mm.add(SCROLL_BREAKPOINTS, (context) => {
       const { isMobile, isTablet } = context.conditions;
 
-      const speed = isMobile ? 40 : isTablet ? 60 : 85;
+      const speed = isMobile ? 25 : isTablet ? 45 : 70;
 
       // Track holds the sponsor list twice, so half its scrollWidth
       // equals the width of ONE full set of logos (incl. gaps).
