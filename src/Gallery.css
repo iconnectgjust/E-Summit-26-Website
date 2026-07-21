@@ -173,6 +173,7 @@
   }
 
   .gallery-row {
+    grid-template-columns: 1fr;
     gap: 28px;
   }
 
@@ -207,7 +208,7 @@
   }
 
   .gallery-slider {
-    height: calc(var(--gallery-card-h) * 2 + 20px);
+    height: var(--gallery-card-h);
     margin-top: 40px;
   }
 
@@ -237,7 +238,7 @@
   }
 
   .gallery-slider {
-    height: calc(var(--gallery-card-h) * 2 + 16px);
+    height: var(--gallery-card-h);
     margin-top: 32px;
   }
 

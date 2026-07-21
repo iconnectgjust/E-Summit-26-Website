@@ -8,6 +8,7 @@ import gsap from "gsap";
 import spotlight from "../../assets/startup spotlight.png";
 import space from "../../assets/startup space.png";
 import pitch from "../../assets/pitch tank.png";
+import { SCROLL_BREAKPOINTS } from "../../utils/scrollBreakpoints";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,113 +16,132 @@ const Aboutevents = () => {
   const sectionRef = useRef(null);
 
   useGSAP(() => {
-    // Heading
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: ".allevents-heading",
-          start: "top 75%",
-          toggleActions: "play none none reverse",
-        },
-      })
-      .from(".allevents-heading span", {
-        y: 20,
-        opacity: 0,
-        duration: 0.5,
-        ease: "power3.out",
-      })
-      .from(
-        ".allevents-heading h2",
-        {
-          y: 30,
-          opacity: 0,
-          duration: 0.6,
-          ease: "power3.out",
-        },
-        "-=0.25",
-      )
-      .from(
-        ".alldivider",
-        {
-          scaleX: 0,
-          transformOrigin: "left center",
-          duration: 0.5,
-          ease: "power3.out",
-        },
-        "-=0.2",
-      );
+    const mm = gsap.matchMedia();
 
-    // Event Cards
-    gsap.utils.toArray(".allevent-row").forEach((row) => {
-      const reverse = row.classList.contains("allreverse");
+    mm.add(SCROLL_BREAKPOINTS, (context) => {
+      const { isMobile, isTablet } = context.conditions;
 
-      const image = row.querySelector(".allevent-image");
-      const title = row.querySelector("h3");
-      const para = row.querySelector("p");
-      const buttons = row.querySelectorAll("button");
+      // These animations use toggleActions rather than scrub, so they
+      // aren't affected by the "finishes too quickly" scroll-distance
+      // bug — they just fire once when crossing the trigger line. We
+      // still route them through matchMedia for architectural
+      // consistency, nudging the trigger point a little earlier on
+      // smaller screens where sections/cards sit closer together.
+      const headingStart = isMobile ? "top 85%" : isTablet ? "top 80%" : "top 75%";
+      const rowStart = isMobile ? "top 88%" : isTablet ? "top 82%" : "top 78%";
 
+      // Heading
       gsap
         .timeline({
           scrollTrigger: {
-            trigger: row,
-            start: "top 78%",
+            trigger: ".allevents-heading",
+            start: headingStart,
             toggleActions: "play none none reverse",
           },
         })
-        .from(image, {
-          x: reverse ? 80 : -80,
+        .from(".allevents-heading span", {
+          y: 20,
           opacity: 0,
-          scale: 0.95,
-          duration: 0.7,
+          duration: 0.5,
           ease: "power3.out",
         })
         .from(
-          title,
+          ".allevents-heading h2",
           {
-            y: 25,
+            y: 30,
             opacity: 0,
-            duration: 0.45,
-            ease: "power3.out",
-          },
-          "-=0.45",
-        )
-        .from(
-          row.querySelector(".event-tag"),
-          {
-            y: 18,
-            opacity: 0,
-            scale: 0.85,
-            duration: 0.5,
-            ease: "back.out(1.8)",
-          },
-          "-=0.55",
-        )
-        .from(
-          para,
-          {
-            y: 20,
-            opacity: 0,
-            duration: 0.45,
+            duration: 0.6,
             ease: "power3.out",
           },
           "-=0.25",
         )
         .from(
-          buttons,
+          ".alldivider",
           {
-            y: 25,
-            opacity: 0,
-            scale: 0.9,
-            duration: 0.45,
-            stagger: 0.3,
-            ease: "back.out(1.7)",
-            clearProps: "transform",
+            scaleX: 0,
+            transformOrigin: "left center",
+            duration: 0.5,
+            ease: "power3.out",
           },
-          "-=0.15",
+          "-=0.2",
         );
+
+      // Event Cards
+      gsap.utils.toArray(".allevent-row").forEach((row) => {
+        const reverse = row.classList.contains("allreverse");
+
+        const image = row.querySelector(".allevent-image");
+        const title = row.querySelector("h3");
+        const para = row.querySelector("p");
+        const buttons = row.querySelectorAll("button");
+
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: row,
+              start: rowStart,
+              toggleActions: "play none none reverse",
+            },
+          })
+          .from(image, {
+            x: reverse ? 80 : -80,
+            opacity: 0,
+            scale: 0.95,
+            duration: 0.7,
+            ease: "power3.out",
+          })
+          .from(
+            title,
+            {
+              y: 25,
+              opacity: 0,
+              duration: 0.45,
+              ease: "power3.out",
+            },
+            "-=0.45",
+          )
+          .from(
+            row.querySelector(".event-tag"),
+            {
+              y: 18,
+              opacity: 0,
+              scale: 0.85,
+              duration: 0.5,
+              ease: "back.out(1.8)",
+            },
+            "-=0.55",
+          )
+          .from(
+            para,
+            {
+              y: 20,
+              opacity: 0,
+              duration: 0.45,
+              ease: "power3.out",
+            },
+            "-=0.25",
+          )
+          .from(
+            buttons,
+            {
+              y: 25,
+              opacity: 0,
+              scale: 0.9,
+              duration: 0.45,
+              stagger: 0.3,
+              ease: "back.out(1.7)",
+              clearProps: "transform",
+            },
+            "-=0.15",
+          );
+      });
+
+      ScrollTrigger.refresh();
+
+      return () => {};
     });
 
-    ScrollTrigger.refresh();
+    return () => mm.revert();
   }, []);
 
   return (
