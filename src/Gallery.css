@@ -9,6 +9,18 @@
   overflow: hidden;
 }
 
+.gallery-section::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:#18382f;   
+    -webkit-mask:url("./assets/esummit-pattern.svg") repeat;
+    -webkit-mask-size:2400px 40px;
+    mask:url("./assets/esummit-pattern.svg") repeat;
+    mask-size:2400px 40px;
+    opacity:.05;
+}
+
 .gallery-header {
   position: relative;
   z-index: 5;
