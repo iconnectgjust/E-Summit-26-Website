@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import aboutImg from "./assets/aboutimg.JPG";
+import { SCROLL_BREAKPOINTS, getResponsiveScrub } from "./utils/scrollBreakpoints";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,87 +12,107 @@ const About = () => {
   const aboutRef = useRef(null);
 
   useGSAP(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".about-section",
-        scroller: "body",
-        start: "top 75%",
-        end: "top 10%",
-        scrub: 2,
-      },
-    });
+    const mm = gsap.matchMedia();
 
-    // Heading Tag
-    tl.from(".about-heading p", {
-      x: -50,
-      opacity: 0,
-      duration: 1,
-      ease: "power2.out",
-    });
+    mm.add(SCROLL_BREAKPOINTS, (context) => {
+      const { isMobile, isTablet } = context.conditions;
 
-    // Heading
-    tl.from(
-      ".about-heading h1",
-      {
-        y: 35,
+      // Desktop keeps the exact original values. Tablet/mobile get a
+      // longer, pixel-based scroll distance ("+=") so the timeline has
+      // enough room to play out on shorter viewports, plus a larger
+      // scrub so it doesn't snap through instantly.
+      const scrollTriggerVars = isMobile
+        ? { start: "top 90%", end: "+=420", scrub: getResponsiveScrub(2, context.conditions) }
+        : isTablet
+        ? { start: "top 85%", end: "+=550", scrub: getResponsiveScrub(2, context.conditions) }
+        : { start: "top 75%", end: "top 10%", scrub: 2 };
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".about-section",
+          scroller: "body",
+          ...scrollTriggerVars,
+        },
+      });
+
+      // Heading Tag
+      tl.from(".about-heading p", {
+        x: -50,
         opacity: 0,
         duration: 1,
         ease: "power2.out",
-      },
-      "-=0.6",
-    );
+      });
 
-    // Image
-    tl.from(
-      ".about-image img",
-      {
-        x: -120,
-        y: 20,
-        scale: 0.88,
-        rotate: -4,
-        opacity: 0,
-        duration: 1.3,
-        ease: "power3.out",
-      },
-      "-=0.5",
-    );
+      // Heading
+      tl.from(
+        ".about-heading h1",
+        {
+          y: 35,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+        },
+        "-=0.6",
+      );
 
-    // Cards
-    tl.from(
-      ".card-1",
-      {
-        x: 80,
-        y: 20,
-        opacity: 0,
-        duration: 1.1,
-        ease: "power3.out",
-      },
-      "-=0.8",
-    );
+      // Image
+      tl.from(
+        ".about-image img",
+        {
+          x: -120,
+          y: 20,
+          scale: 0.88,
+          rotate: -4,
+          opacity: 0,
+          duration: 1.3,
+          ease: "power3.out",
+        },
+        "-=0.5",
+      );
 
-    tl.from(
-      ".card-2",
-      {
-        x: 80,
-        y: 20,
-        opacity: 0,
-        duration: 1.1,
-        ease: "power3.out",
-      },
-      "-=0.7",
-    );
+      // Cards
+      tl.from(
+        ".card-1",
+        {
+          x: 80,
+          y: 20,
+          opacity: 0,
+          duration: 1.1,
+          ease: "power3.out",
+        },
+        "-=0.8",
+      );
 
-    tl.from(
-      ".card-3",
-      {
-        x: 80,
-        y: 20,
-        opacity: 0,
-        duration: 1.1,
-        ease: "power3.out",
-      },
-      "-=0.6",
-    );
+      tl.from(
+        ".card-2",
+        {
+          x: 80,
+          y: 20,
+          opacity: 0,
+          duration: 1.1,
+          ease: "power3.out",
+        },
+        "-=0.7",
+      );
+
+      tl.from(
+        ".card-3",
+        {
+          x: 80,
+          y: 20,
+          opacity: 0,
+          duration: 1.1,
+          ease: "power3.out",
+        },
+        "-=0.6",
+      );
+
+      // gsap.matchMedia auto-reverts tweens/ScrollTriggers created here
+      // whenever the media query stops matching or the parent context reverts.
+      return () => {};
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (

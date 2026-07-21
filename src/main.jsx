@@ -8,7 +8,16 @@ import './App.css'
 
 gsap.registerPlugin(ScrollTrigger)
 ScrollTrigger.config({ ignoreMobileResize: true })
-if (window.matchMedia("(max-width: 1024px)").matches) {
+
+// Single, app-wide call. This normalizes touch scroll (address-bar
+// resize jank, momentum scrolling, etc.) on phones/tablets only —
+// desktop mouse/trackpad scrolling is left untouched. Intentionally
+// called exactly once here, never inside a component.
+const isTouchDevice =
+  window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window
+const isSmallViewport = window.matchMedia("(max-width: 992px)").matches
+
+if (isTouchDevice || isSmallViewport) {
   ScrollTrigger.normalizeScroll(true)
 }
 

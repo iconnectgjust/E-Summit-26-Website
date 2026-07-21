@@ -10,6 +10,7 @@ import {
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { SCROLL_BREAKPOINTS, getResponsiveScrub } from "./utils/scrollBreakpoints";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,84 +51,110 @@ const Journey = () => {
   const sectionRef = useRef(null);
 
   useGSAP(() => {
-    const headTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".journey",
-        scroller: "body",
-        start: "top 75%",
-        end: "top 20%",
-        scrub: 2,
-      },
-    });
+    const mm = gsap.matchMedia();
 
-    headTl.from(".journey-heading span", {
-      x: -50,
-      opacity: 0,
-      duration: 1,
-      ease: "power2.out",
-    });
+    mm.add(SCROLL_BREAKPOINTS, (context) => {
+      const { isMobile, isTablet } = context.conditions;
 
-    headTl.from(
-      ".journey-heading h2",
-      { y: 35, opacity: 0, duration: 1, ease: "power2.out" },
-      "-=0.6",
-    );
+      // Heading
+      const headingRange = isMobile
+        ? { start: "top 88%", end: "+=380", scrub: getResponsiveScrub(2, context.conditions) }
+        : isTablet
+        ? { start: "top 82%", end: "+=500", scrub: getResponsiveScrub(2, context.conditions) }
+        : { start: "top 75%", end: "top 20%", scrub: 2 };
 
-    // Timeline line grows top-to-bottom as the whole section scrolls
-    gsap.from(".timeline-line", {
-      scaleY: 0,
-      transformOrigin: "top center",
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".timeline",
-        scroller: "body",
-        start: "top 70%",
-        end: "bottom 60%",
-        scrub: 2,
-      },
-    });
-
-    // Each timeline item animates in from its side as it enters view
-    gsap.utils.toArray(".timeline-item").forEach((item) => {
-      const isRight = item.classList.contains("right");
-
-      const itemTl = gsap.timeline({
+      const headTl = gsap.timeline({
         scrollTrigger: {
-          trigger: item,
+          trigger: ".journey",
           scroller: "body",
-          start: "top 85%",
-          end: "top 45%",
-          scrub: 2,
+          ...headingRange,
         },
       });
 
-      itemTl.from(item.querySelector(".timeline-content"), {
-        x: isRight ? 80 : -80,
+      headTl.from(".journey-heading span", {
+        x: -50,
         opacity: 0,
         duration: 1,
-        ease: "power3.out",
+        ease: "power2.out",
       });
 
-      itemTl.from(
-        item.querySelector(".timeline-circle"),
-        { scale: 0, opacity: 0, duration: 0.7, ease: "back.out(2)" },
-        "-=0.7",
+      headTl.from(
+        ".journey-heading h2",
+        { y: 35, opacity: 0, duration: 1, ease: "power2.out" },
+        "-=0.6",
       );
+
+      // Timeline line grows top-to-bottom as the whole section scrolls.
+      // This range already tracks the timeline's own (content-driven)
+      // height via "bottom 60%", so only the scrub is bumped for
+      // smaller screens rather than the start/end points.
+      gsap.from(".timeline-line", {
+        scaleY: 0,
+        transformOrigin: "top center",
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".timeline",
+          scroller: "body",
+          start: "top 70%",
+          end: "bottom 60%",
+          scrub: getResponsiveScrub(2, context.conditions),
+        },
+      });
+
+      // Each timeline item animates in from its side as it enters view
+      const itemRange = isMobile
+        ? { start: "top 92%", end: "+=320", scrub: getResponsiveScrub(2, context.conditions) }
+        : isTablet
+        ? { start: "top 88%", end: "+=420", scrub: getResponsiveScrub(2, context.conditions) }
+        : { start: "top 85%", end: "top 45%", scrub: 2 };
+
+      gsap.utils.toArray(".timeline-item").forEach((item) => {
+        const isRight = item.classList.contains("right");
+
+        const itemTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: item,
+            scroller: "body",
+            ...itemRange,
+          },
+        });
+
+        itemTl.from(item.querySelector(".timeline-content"), {
+          x: isRight ? 80 : -80,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        });
+
+        itemTl.from(
+          item.querySelector(".timeline-circle"),
+          { scale: 0, opacity: 0, duration: 0.7, ease: "back.out(2)" },
+          "-=0.7",
+        );
+      });
+
+      const arrowRange = isMobile
+        ? { start: "top 95%", end: "+=200", scrub: getResponsiveScrub(2, context.conditions) }
+        : isTablet
+        ? { start: "top 92%", end: "+=260", scrub: getResponsiveScrub(2, context.conditions) }
+        : { start: "top 90%", end: "top 60%", scrub: 2 };
+
+      gsap.from(".timeline-arrow", {
+        scale: 0,
+        opacity: 0,
+        duration: 0.7,
+        ease: "back.out(2)",
+        scrollTrigger: {
+          trigger: ".timeline-arrow",
+          scroller: "body",
+          ...arrowRange,
+        },
+      });
+
+      return () => {};
     });
 
-    gsap.from(".timeline-arrow", {
-      scale: 0,
-      opacity: 0,
-      duration: 0.7,
-      ease: "back.out(2)",
-      scrollTrigger: {
-        trigger: ".timeline-arrow",
-        scroller: "body",
-        start: "top 90%",
-        end: "top 60%",
-        scrub: 2,
-      },
-    });
+    return () => mm.revert();
   }, []);
 
   return (

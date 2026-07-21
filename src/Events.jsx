@@ -4,6 +4,7 @@ import "./Events.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { SCROLL_BREAKPOINTS, getResponsiveScrub } from "./utils/scrollBreakpoints";
 
 import spotlight from "./assets/startup spotlight.png";
 import space from "./assets/startup space.png";
@@ -22,117 +23,141 @@ const Events = () => {
       opacity: 1,
     });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".events",
-        scroller: "body",
-        start: "top 75%",
-        end: "top 10%",
-        scrub: 2,
-      },
-    });
+    const mm = gsap.matchMedia();
 
-    tl.from(".events-heading span", {
-      x: -50,
-      opacity: 0,
-      duration: 1,
-      ease: "power2.out",
-    });
+    mm.add(SCROLL_BREAKPOINTS, (context) => {
+      const { isMobile, isTablet } = context.conditions;
 
-    tl.from(
-      ".events-heading h2",
-      { y: 35, opacity: 0, duration: 1, ease: "power2.out" },
-      "-=0.6",
-    );
+      // Heading timeline
+      const headingRange = isMobile
+        ? { start: "top 88%", end: "+=380", scrub: getResponsiveScrub(2, context.conditions) }
+        : isTablet
+        ? { start: "top 82%", end: "+=500", scrub: getResponsiveScrub(2, context.conditions) }
+        : { start: "top 75%", end: "top 10%", scrub: 2 };
 
-    tl.from(
-      ".divider",
-      {
-        scaleX: 0,
-        transformOrigin: "left center",
-        duration: 0.8,
-        ease: "power2.out",
-      },
-      "-=0.4",
-    );
-
-    // Each event row gets its own scrubbed timeline so it animates
-    // in/out as it individually enters/leaves the viewport.
-    gsap.utils.toArray(".event-row").forEach((row) => {
-      const isReverse = row.classList.contains("reverse");
-
-      const rowTl = gsap.timeline({
+      const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: row,
+          trigger: ".events",
           scroller: "body",
-          start: "top 85%",
-          end: "top 40%",
-          scrub: 2,
+          ...headingRange,
         },
       });
 
-      rowTl.from(row.querySelector(".event-image img"), {
-        x: isReverse ? 100 : -100,
-        scale: 0.9,
+      tl.from(".events-heading span", {
+        x: -50,
         opacity: 0,
         duration: 1,
-        ease: "power3.out",
+        ease: "power2.out",
       });
 
-      rowTl.from(
-        row.querySelector(".event-content h3"),
-        {
-          x: isReverse ? -60 : 60,
-          opacity: 0,
-          duration: 0.9,
-          ease: "power3.out",
-        },
-        "-=0.7",
-      );
-
-      rowTl.from(
-        row.querySelector(".event-tag"),
-        {
-          y: 18,
-          opacity: 0,
-          scale: 0.85,
-          duration: 0.5,
-          ease: "back.out(1.8)",
-        },
-        "-=0.55",
-      );
-
-      rowTl.from(
-        row.querySelector(".event-content p"),
-        { y: 25, opacity: 0, duration: 0.9, ease: "power3.out" },
+      tl.from(
+        ".events-heading h2",
+        { y: 35, opacity: 0, duration: 1, ease: "power2.out" },
         "-=0.6",
       );
 
-      rowTl.from(
-        row.querySelectorAll(".buttons button"),
+      tl.from(
+        ".divider",
         {
-          y: 35,
-          opacity: 0,
-          scale: 0.9,
-          ease: "power3.out",
-          stagger: 0.3,
+          scaleX: 0,
+          transformOrigin: "left center",
+          duration: 0.8,
+          ease: "power2.out",
         },
         "-=0.4",
       );
+
+      // Each event row gets its own scrubbed timeline so it animates
+      // in/out as it individually enters/leaves the viewport.
+      const rowRange = isMobile
+        ? { start: "top 92%", end: "+=320", scrub: getResponsiveScrub(2, context.conditions) }
+        : isTablet
+        ? { start: "top 88%", end: "+=420", scrub: getResponsiveScrub(2, context.conditions) }
+        : { start: "top 85%", end: "top 40%", scrub: 2 };
+
+      gsap.utils.toArray(".event-row").forEach((row) => {
+        const isReverse = row.classList.contains("reverse");
+
+        const rowTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: row,
+            scroller: "body",
+            ...rowRange,
+          },
+        });
+
+        rowTl.from(row.querySelector(".event-image img"), {
+          x: isReverse ? 100 : -100,
+          scale: 0.9,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+        });
+
+        rowTl.from(
+          row.querySelector(".event-content h3"),
+          {
+            x: isReverse ? -60 : 60,
+            opacity: 0,
+            duration: 0.9,
+            ease: "power3.out",
+          },
+          "-=0.7",
+        );
+
+        rowTl.from(
+          row.querySelector(".event-tag"),
+          {
+            y: 18,
+            opacity: 0,
+            scale: 0.85,
+            duration: 0.5,
+            ease: "back.out(1.8)",
+          },
+          "-=0.55",
+        );
+
+        rowTl.from(
+          row.querySelector(".event-content p"),
+          { y: 25, opacity: 0, duration: 0.9, ease: "power3.out" },
+          "-=0.6",
+        );
+
+        rowTl.from(
+          row.querySelectorAll(".buttons button"),
+          {
+            y: 35,
+            opacity: 0,
+            scale: 0.9,
+            ease: "power3.out",
+            stagger: 0.3,
+          },
+          "-=0.4",
+        );
+      });
+
+      // View-all button
+      const viewBtnRange = isMobile
+        ? { start: "top 95%", end: "+=200", scrub: getResponsiveScrub(1.5, context.conditions) }
+        : isTablet
+        ? { start: "top 92%", end: "+=260", scrub: getResponsiveScrub(1.5, context.conditions) }
+        : { start: "top 90%", end: "top 60%", scrub: 1.5 };
+
+      gsap.from(".view-btn button", {
+        y: 40,
+        opacity: 0,
+        scale: 0.9,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".view-btn",
+          ...viewBtnRange,
+        },
+      });
+
+      return () => {};
     });
 
-    gsap.from(".view-btn button", {
-      y: 40,
-      opacity: 0,
-      scale: 0.9,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: ".view-btn",
-        start: "top 90%",
-        end: "top 60%",
-        scrub: 1.5,
-      },
-    });
+    return () => mm.revert();
   }, []);
 
   return (

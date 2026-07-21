@@ -10,6 +10,7 @@ import img6 from "./assets/EGallery6.JPG";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { SCROLL_BREAKPOINTS, getResponsiveScrub } from "./utils/scrollBreakpoints";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -81,76 +82,77 @@ const Gallery = () => {
       if (rows.length > 1) {
         const mm = gsap.matchMedia();
 
-        mm.add(
-          {
-            isDesktop: "(min-width: 993px)",
-            isTablet: "(min-width: 769px) and (max-width: 992px)",
-            isMobile: "(max-width: 768px)",
-          },
-          (context) => {
-            const { isMobile, isTablet } = context.conditions;
+        mm.add(SCROLL_BREAKPOINTS, (context) => {
+          const { isMobile, isTablet } = context.conditions;
 
-            // Scroll distance per row-change and how much the covered
-            // row dims/shrinks, scaled down for smaller screens.
-            const scrollPerRow = isMobile ? 0.55 : isTablet ? 0.65 : 0.85;
-            const restScale = isMobile ? 0.97 : 0.94;
-            const restBrightness = isMobile ? 0.85 : 0.75;
+          // Scroll distance per row-change and how much the covered
+          // row dims/shrinks, scaled down for smaller screens.
+          const scrollPerRow = isMobile ? 0.55 : isTablet ? 0.65 : 0.85;
+          const restScale = isMobile ? 0.97 : 0.94;
+          const restBrightness = isMobile ? 0.85 : 0.75;
 
-            // Reset rows to their stacked starting position whenever the
-            // breakpoint changes.
-            rows.forEach((row, i) => {
-              gsap.set(row, {
-                zIndex: i + 1,
-                yPercent: i === 0 ? 0 : 100,
-                scale: 1,
-                filter: "brightness(1)",
-              });
+          // Desktop keeps the original scrub feel; tablet/mobile get a
+          // larger scrub so the pinned stack transition doesn't finish
+          // in an instant on shorter viewports.
+          const scrub = getResponsiveScrub(1, context.conditions, {
+            tablet: 2,
+            mobile: 3.5,
+          });
+
+          // Reset rows to their stacked starting position whenever the
+          // breakpoint changes.
+          rows.forEach((row, i) => {
+            gsap.set(row, {
+              zIndex: i + 1,
+              yPercent: i === 0 ? 0 : 100,
+              scale: 1,
+              filter: "brightness(1)",
             });
+          });
 
-            const stackTl = gsap.timeline({
-              scrollTrigger: {
-                id: "gallery-stack",
-                trigger: section,
-                start: "top top",
-                end: () =>
-                  "+=" + (rows.length - 1) * window.innerHeight * scrollPerRow,
-                pin: true,
-                scrub: 1,
-                anticipatePin: 1,
-                invalidateOnRefresh: true,
-              },
-            });
+          const stackTl = gsap.timeline({
+            scrollTrigger: {
+              id: "gallery-stack",
+              trigger: section,
+              start: "top top",
+              end: () =>
+                "+=" + (rows.length - 1) * window.innerHeight * scrollPerRow,
+              pin: true,
+              scrub,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+            },
+          });
 
-            rows.forEach((row, i) => {
-              if (i === 0) return;
-              const prevRow = rows[i - 1];
-              const position = i - 1;
+          rows.forEach((row, i) => {
+            if (i === 0) return;
+            const prevRow = rows[i - 1];
+            const position = i - 1;
 
-              stackTl
-                .to(
-                  prevRow,
-                  {
-                    scale: restScale,
-                    filter: `brightness(${restBrightness})`,
-                    duration: 1,
-                  },
-                  position
-                )
-                .to(
-                  row,
-                  { yPercent: 0, duration: 1, ease: "power2.out" },
-                  position
-                );
-            });
+            stackTl
+              .to(
+                prevRow,
+                {
+                  scale: restScale,
+                  filter: `brightness(${restBrightness})`,
+                  duration: 1,
+                },
+                position
+              )
+              .to(
+                row,
+                { yPercent: 0, duration: 1, ease: "power2.out" },
+                position
+              );
+          });
 
-            // Cleanup for this breakpoint (called automatically by
-            // matchMedia when the media query stops matching).
-            return () => {
-              stackTl.scrollTrigger && stackTl.scrollTrigger.kill();
-              stackTl.kill();
-            };
-          }
-        );
+          // Cleanup for this breakpoint (called automatically by
+          // matchMedia when the media query stops matching).
+          return () => {
+            stackTl.scrollTrigger && stackTl.scrollTrigger.kill();
+            stackTl.kill();
+          };
+        });
       }
 
       const imgs = section.querySelectorAll("img");

@@ -8,6 +8,7 @@ import "./Hero.css";
 import logo from "./assets/ESlogo.png";
 import logoMobile from "./assets/ESlogoMobile.png";
 import heroVideo from "./assets/animated video mountain.mp4";
+import { SCROLL_BREAKPOINTS, getResponsiveScrub } from "./utils/scrollBreakpoints";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -377,16 +378,18 @@ const Hero = () => {
 
       const mm = gsap.matchMedia();
 
-      mm.add(
-        {
-          isDesktop: "(min-width: 1025px)",
-          isTablet: "(min-width: 768px) and (max-width: 1024px)",
-          isMobile: "(max-width: 767px)",
-        },
-        (context) => {
+      mm.add(SCROLL_BREAKPOINTS, (context) => {
           const { isDesktop, isTablet } = context.conditions;
           const vh = window.innerHeight;
-          const distance = isDesktop ? vh * 3 : isTablet ? vh * 1.2 : vh * 1.3;
+          // Desktop distance/scrub are untouched. Tablet/mobile get a
+          // longer pinned scroll distance (relative to their own
+          // viewport) plus a larger scrub, so the pin+zoom doesn't
+          // finish almost instantly on short mobile screens.
+          const distance = isDesktop ? vh * 3 : isTablet ? vh * 1.6 : vh * 1.9;
+          const scrub = getResponsiveScrub(1, context.conditions, {
+            tablet: 2,
+            mobile: 3.5,
+          });
 
           const scrubTl = gsap.timeline({
             scrollTrigger: {
@@ -394,7 +397,7 @@ const Hero = () => {
               trigger: heroRef.current,
               start: "top top",
               end: `+=${distance}`,
-              scrub: 1,
+              scrub,
               pin: true,
               pinSpacing: true,
               anticipatePin: 1,
