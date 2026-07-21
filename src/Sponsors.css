@@ -60,27 +60,31 @@
 
 .sponsors-track{
     display:flex;
+    align-items:center;
     gap:30px;
     width:max-content;
     will-change:transform;
 }
 
-.sponsor-card img{
-    width: 88%;
-    height: 88%;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
+/* Card now sizes itself to whatever image it holds - no fixed
+   width/height. Background/radius still show as a subtle mat
+   around the logo; remove them if you want the image edge-to-edge. */
 .sponsor-card{
-    width:340px;
-    height:180px;
-    border-radius: 16px;
-    background:#f7f0e0;
     display:flex;
     justify-content:center;
     align-items:center;
+    border-radius: 16px;
+    background:#f7f0e0;
     transition:.3s;
+}
+
+.sponsor-card img{
+    display:block;
+    height:180px;
+    width:auto;
+    max-width:100%;
+    object-fit:contain;
+    border-radius:10px;
 }
 
 @media (max-width:992px){
@@ -93,9 +97,8 @@
     margin-bottom:0;
 }
 
-.sponsor-card{
-    width:160px;
-    height:82px;
+.sponsor-card img{
+    height:100px;
 }
 
 .sponsors-track{
@@ -119,9 +122,8 @@
     font-size:14px;
 }
 
-.sponsor-card{
-    width:140px;
-    height:72px;
+.sponsor-card img{
+    height:80px;
 }
 
 .sponsors-track{
@@ -144,8 +146,7 @@
     gap:14px;
 }
 
-.sponsor-card{
-    width:130px;
+.sponsor-card img{
     height:70px;
 }
 

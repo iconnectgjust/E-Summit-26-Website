@@ -381,14 +381,15 @@ const Hero = () => {
       mm.add(SCROLL_BREAKPOINTS, (context) => {
           const { isDesktop, isTablet } = context.conditions;
           const vh = window.innerHeight;
-          // Desktop distance/scrub are untouched. Tablet/mobile get a
-          // longer pinned scroll distance (relative to their own
-          // viewport) plus a larger scrub, so the pin+zoom doesn't
-          // finish almost instantly on short mobile screens.
-          const distance = isDesktop ? vh * 3 : isTablet ? vh * 1.6 : vh * 1.9;
+          // Desktop distance/scrub are untouched. Tablet/mobile get an
+          // even longer pinned scroll distance (relative to their own
+          // viewport) plus a gentler scrub, so the pin+zoom takes its
+          // time on shorter mobile screens instead of finishing almost
+          // instantly.
+          const distance = isDesktop ? vh * 3 : isTablet ? vh * 2.4 : vh * 2.8;
           const scrub = getResponsiveScrub(1, context.conditions, {
-            tablet: 2,
-            mobile: 3.5,
+            tablet: 1.3,
+            mobile: 1.3,
           });
 
           const scrubTl = gsap.timeline({
@@ -523,13 +524,20 @@ const Hero = () => {
 
         <ul className={`links ${menuOpen ? "active" : ""}`}>
           <li>
-            <a
-              href="#home"
-              onClick={(e) => handleScrollLink(e, "home")}
-              className={activeSection === "home" ? "active" : ""}
-            >
+            <Link to="/" className={activeSection === "home" ? "active" : ""}
+            onClick={(e) => {
+              e.preventDefault();
+
+              if (location.pathname === "/") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              } else {
+                window.location.href = "/";
+              }
+
+              setMenuOpen(false);
+            }}>
               Home
-            </a>
+            </Link>
           </li>
 
           <li>

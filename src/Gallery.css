@@ -69,6 +69,11 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 38px;
   will-change: transform;
+  z-index: 0;
+}
+
+.gallery-row:first-child {
+  z-index: 10;
 }
 
 .gallery-card {

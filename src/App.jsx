@@ -36,7 +36,7 @@ function App() {
           <About/>
           <Events/>
           <Journey/>
-          {/* <Sponsors/> */}
+          <Sponsors/>
           <Gallery/>
           <ContactUs/>
           <Faqs/>

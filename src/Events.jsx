@@ -30,9 +30,9 @@ const Events = () => {
 
       // Heading timeline
       const headingRange = isMobile
-        ? { start: "top 88%", end: "+=380", scrub: getResponsiveScrub(2, context.conditions) }
+        ? { start: "top 88%", end: "+=560", scrub: getResponsiveScrub(2, context.conditions, { mobile: 1.4 }) }
         : isTablet
-        ? { start: "top 82%", end: "+=500", scrub: getResponsiveScrub(2, context.conditions) }
+        ? { start: "top 82%", end: "+=700", scrub: getResponsiveScrub(2, context.conditions, { tablet: 1.4 }) }
         : { start: "top 75%", end: "top 10%", scrub: 2 };
 
       const tl = gsap.timeline({
@@ -70,9 +70,9 @@ const Events = () => {
       // Each event row gets its own scrubbed timeline so it animates
       // in/out as it individually enters/leaves the viewport.
       const rowRange = isMobile
-        ? { start: "top 92%", end: "+=320", scrub: getResponsiveScrub(2, context.conditions) }
+        ? { start: "top 92%", end: "+=480", scrub: getResponsiveScrub(2, context.conditions, { mobile: 1.4 }) }
         : isTablet
-        ? { start: "top 88%", end: "+=420", scrub: getResponsiveScrub(2, context.conditions) }
+        ? { start: "top 88%", end: "+=600", scrub: getResponsiveScrub(2, context.conditions, { tablet: 1.4 }) }
         : { start: "top 85%", end: "top 40%", scrub: 2 };
 
       gsap.utils.toArray(".event-row").forEach((row) => {
@@ -138,9 +138,9 @@ const Events = () => {
 
       // View-all button
       const viewBtnRange = isMobile
-        ? { start: "top 95%", end: "+=200", scrub: getResponsiveScrub(1.5, context.conditions) }
+        ? { start: "top 95%", end: "+=300", scrub: getResponsiveScrub(1.5, context.conditions, { mobile: 1.2 }) }
         : isTablet
-        ? { start: "top 92%", end: "+=260", scrub: getResponsiveScrub(1.5, context.conditions) }
+        ? { start: "top 92%", end: "+=380", scrub: getResponsiveScrub(1.5, context.conditions, { tablet: 1.2 }) }
         : { start: "top 90%", end: "top 60%", scrub: 1.5 };
 
       gsap.from(".view-btn button", {
@@ -222,8 +222,8 @@ const Events = () => {
             <p>
               Startup Space is a platform for students to visually showcase
               their startup ideas, research innovations, or prototypes at
-              E-Summit’26, hosted by Team iConnect under PDUIIC, GJUS&T Hisar.
-              Whether it’s a bold concept or a working solution, this is your
+              E-Summit'26, hosted by Team iConnect under PDUIIC, GJUS&T Hisar.
+              Whether it's a bold concept or a working solution, this is your
               opportunity to inspire.
             </p>
             <div className="buttons">

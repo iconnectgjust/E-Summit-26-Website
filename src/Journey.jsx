@@ -58,9 +58,9 @@ const Journey = () => {
 
       // Heading
       const headingRange = isMobile
-        ? { start: "top 88%", end: "+=380", scrub: getResponsiveScrub(2, context.conditions) }
+        ? { start: "top 88%", end: "+=560", scrub: getResponsiveScrub(2, context.conditions, { mobile: 1.4 }) }
         : isTablet
-        ? { start: "top 82%", end: "+=500", scrub: getResponsiveScrub(2, context.conditions) }
+        ? { start: "top 82%", end: "+=700", scrub: getResponsiveScrub(2, context.conditions, { tablet: 1.4 }) }
         : { start: "top 75%", end: "top 20%", scrub: 2 };
 
       const headTl = gsap.timeline({
@@ -97,15 +97,15 @@ const Journey = () => {
           scroller: "body",
           start: "top 70%",
           end: "bottom 60%",
-          scrub: getResponsiveScrub(2, context.conditions),
+          scrub: getResponsiveScrub(2, context.conditions, { mobile: 1.4, tablet: 1.4 }),
         },
       });
 
       // Each timeline item animates in from its side as it enters view
       const itemRange = isMobile
-        ? { start: "top 92%", end: "+=320", scrub: getResponsiveScrub(2, context.conditions) }
+        ? { start: "top 92%", end: "+=480", scrub: getResponsiveScrub(2, context.conditions, { mobile: 1.4 }) }
         : isTablet
-        ? { start: "top 88%", end: "+=420", scrub: getResponsiveScrub(2, context.conditions) }
+        ? { start: "top 88%", end: "+=600", scrub: getResponsiveScrub(2, context.conditions, { tablet: 1.4 }) }
         : { start: "top 85%", end: "top 45%", scrub: 2 };
 
       gsap.utils.toArray(".timeline-item").forEach((item) => {
@@ -134,9 +134,9 @@ const Journey = () => {
       });
 
       const arrowRange = isMobile
-        ? { start: "top 95%", end: "+=200", scrub: getResponsiveScrub(2, context.conditions) }
+        ? { start: "top 95%", end: "+=300", scrub: getResponsiveScrub(2, context.conditions, { mobile: 1.4 }) }
         : isTablet
-        ? { start: "top 92%", end: "+=260", scrub: getResponsiveScrub(2, context.conditions) }
+        ? { start: "top 92%", end: "+=380", scrub: getResponsiveScrub(2, context.conditions, { tablet: 1.4 }) }
         : { start: "top 90%", end: "top 60%", scrub: 2 };
 
       gsap.from(".timeline-arrow", {

@@ -297,11 +297,6 @@
     padding: 65px 20px;
   }
 
-  .contact-section::before {
-    -webkit-mask-size: 900px 15px;
-    mask-size: 900px 15px;
-  }
-
   .contact-container {
     gap: 45px;
   }

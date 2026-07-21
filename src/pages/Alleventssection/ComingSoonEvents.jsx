@@ -71,6 +71,12 @@ const ComingSoonEvents = () => {
       const cardStart = isMobile ? "top 90%" : isTablet ? "top 87%" : "top 85%";
       const badgeStart = isMobile ? "top 95%" : isTablet ? "top 92%" : "top 90%";
 
+      // Same idea as Aboutevents: these reveals are duration-based, not
+      // scroll-linked, so "slower on mobile" means stretching each
+      // tween's own duration/stagger rather than the scroll distance.
+      const durationScale = isMobile ? 1.6 : isTablet ? 1.25 : 1;
+      const staggerScale = isMobile ? 1.4 : isTablet ? 1.15 : 1;
+
       // -----------------------------
       // Heading Animation
       // -----------------------------
@@ -84,7 +90,7 @@ const ComingSoonEvents = () => {
         .to(".coming-events h2", {
           opacity: 1,
           y: 0,
-          duration: 0.7,
+          duration: 0.7 * durationScale,
           ease: "power3.out",
         })
         .to(
@@ -92,7 +98,7 @@ const ComingSoonEvents = () => {
           {
             opacity: 1,
             y: 0,
-            duration: 0.55,
+            duration: 0.55 * durationScale,
             ease: "power3.out",
           },
           "-=0.35"
@@ -130,7 +136,7 @@ const ComingSoonEvents = () => {
               x: 0,
               y: 0,
               scale: 1,
-              duration: 0.65,
+              duration: 0.65 * durationScale,
               ease: "power3.out",
               clearProps: "transform",
             }
@@ -140,7 +146,7 @@ const ComingSoonEvents = () => {
             {
               scale: 1,
               rotate: 0,
-              duration: 0.45,
+              duration: 0.45 * durationScale,
               ease: "back.out(2)",
             },
             "-=0.35"
@@ -150,7 +156,7 @@ const ComingSoonEvents = () => {
             {
               opacity: 1,
               y: 0,
-              duration: 0.35,
+              duration: 0.35 * durationScale,
               ease: "power2.out",
             },
             "-=0.2"
@@ -160,7 +166,7 @@ const ComingSoonEvents = () => {
             {
               opacity: 1,
               y: 0,
-              duration: 0.35,
+              duration: 0.35 * durationScale,
               ease: "power2.out",
             },
             "-=0.2"
@@ -174,7 +180,7 @@ const ComingSoonEvents = () => {
         opacity: 1,
         y: 0,
         scale: 1,
-        duration: 0.6,
+        duration: 0.6 * durationScale,
         ease: "back.out(1.8)",
         scrollTrigger: {
           trigger: ".coming-badge",

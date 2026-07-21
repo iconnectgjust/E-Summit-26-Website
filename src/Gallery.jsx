@@ -109,10 +109,7 @@ const Gallery = () => {
         // On desktop a "row" is a pair of images (side by side); on
         // tablet/mobile a "row" is a single image, so the effect becomes
         // one image at a time, each new one overlapping the last.
-        // gsap.matchMedia keeps the scrub feel tuned per breakpoint: a
-        // full, slower stack on desktop, and a lighter, smoother one on
-        // tablets/phones so the pinned scroll doesn't feel too long or
-        // too abrupt.
+        // gsap.matchMedia keeps the scrub feel tuned per breakpoint.
 
         const rows = gsap.utils.toArray(".gallery-row", track);
 
@@ -123,8 +120,11 @@ const Gallery = () => {
             const { isMobile, isTablet } = context.conditions;
 
             // Scroll distance per row-change and how much the covered
-            // row dims/shrinks, scaled down for smaller screens.
-            const scrollPerRow = isMobile ? 0.55 : isTablet ? 0.65 : 0.85;
+            // row dims/shrinks. Mobile and tablet now get noticeably MORE
+            // scroll distance per row than before (was 0.55 / 0.65), so
+            // the stack transition reads as a slower, deliberate motion
+            // instead of a quick flick.
+            const scrollPerRow = isMobile ? 0.95 : isTablet ? 0.95 : 0.85;
             const restScale = isMobile ? 0.97 : 0.94;
             const restBrightness = isMobile ? 0.85 : 0.75;
 
@@ -135,14 +135,20 @@ const Gallery = () => {
             // user time to actually look at them before the stack starts
             // moving. Expressed as a fraction of a row so it scales with
             // scrollPerRow automatically.
-            const initialHold = isMobile ? 0.4 : isTablet ? 0.45 : 0.5;
+            const initialHold = isMobile ? 0.55 : isTablet ? 0.55 : 0.5;
 
-            // Desktop keeps the original scrub feel; tablet/mobile get a
-            // larger scrub so the pinned stack transition doesn't finish
-            // in an instant on shorter viewports.
+            // Desktop keeps the original scrub feel. Tablet/mobile get a
+            // MUCH smaller scrub than before (was 2 / 3.5). A large scrub
+            // number tells GSAP to smooth/lag the animation behind the
+            // actual scroll position by that many seconds - on mobile,
+            // combined with momentum/inertial scrolling, that lag is what
+            // made the next image keep sliding up and covering the first
+            // one even after you'd already stopped scrolling (the "peeks
+            // in and overlaps without scrolling" bug). A small scrub keeps
+            // things smooth without that runaway catch-up drift.
             const scrub = getResponsiveScrub(1, context.conditions, {
-              tablet: 2,
-              mobile: 3.5,
+              tablet: 1,
+              mobile: 1,
             });
 
             // Reset rows to their stacked starting position whenever the

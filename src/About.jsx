@@ -19,12 +19,12 @@ const About = () => {
 
       // Desktop keeps the exact original values. Tablet/mobile get a
       // longer, pixel-based scroll distance ("+=") so the timeline has
-      // enough room to play out on shorter viewports, plus a larger
-      // scrub so it doesn't snap through instantly.
+      // enough room to play out slowly on shorter viewports, plus a
+      // gentler scrub so it doesn't snap through instantly.
       const scrollTriggerVars = isMobile
-        ? { start: "top 90%", end: "+=420", scrub: getResponsiveScrub(2, context.conditions) }
+        ? { start: "top 90%", end: "+=620", scrub: getResponsiveScrub(2, context.conditions, { mobile: 1.4 }) }
         : isTablet
-        ? { start: "top 85%", end: "+=550", scrub: getResponsiveScrub(2, context.conditions) }
+        ? { start: "top 85%", end: "+=780", scrub: getResponsiveScrub(2, context.conditions, { tablet: 1.4 }) }
         : { start: "top 75%", end: "top 10%", scrub: 2 };
 
       const tl = gsap.timeline({
