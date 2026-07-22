@@ -50,30 +50,56 @@ const Sponsors = () => {
     if (!track) return;
 
     const mm = gsap.matchMedia();
+    let cancelled = false;
 
-    mm.add(SCROLL_BREAKPOINTS, (context) => {
-      const { isMobile, isTablet } = context.conditions;
+    // scrollWidth is only accurate once every logo has actually
+    // loaded (browsers give un-loaded <img> tags ~0 intrinsic width).
+    // On a cold load images are still fetching when this effect runs,
+    // so we wait for them first - otherwise the measured width (and
+    // therefore the tween duration) comes out too small, making the
+    // marquee look too fast until the next reload from cache.
+    const imgs = Array.from(track.querySelectorAll("img"));
+    const imagesReady = Promise.all(
+      imgs.map((img) =>
+        img.complete
+          ? Promise.resolve()
+          : new Promise((resolve) => {
+              img.addEventListener("load", resolve, { once: true });
+              img.addEventListener("error", resolve, { once: true });
+            })
+      )
+    );
 
-      const speed = isMobile ? 18 : isTablet ? 35 : 35;
+    imagesReady.then(() => {
+      if (cancelled) return;
 
-      // Track holds the sponsor list twice, so half its scrollWidth
-      // equals the width of ONE full set of logos (incl. gaps).
-      const halfWidth = track.scrollWidth / 2;
-      const duration = halfWidth / speed;
+      mm.add(SCROLL_BREAKPOINTS, (context) => {
+        const { isMobile, isTablet } = context.conditions;
 
-      const tween = gsap.to(track, {
-        xPercent: -50,
-        ease: "none",
-        duration,
-        repeat: -1,
+        const speed = isMobile ? 18 : isTablet ? 35 : 50;
+
+        // Track holds the sponsor list twice, so half its scrollWidth
+        // equals the width of ONE full set of logos (incl. gaps).
+        const halfWidth = track.scrollWidth / 2;
+        const duration = halfWidth / speed;
+
+        const tween = gsap.to(track, {
+          xPercent: -50,
+          ease: "none",
+          duration,
+          repeat: -1,
+        });
+
+        return () => {
+          tween.kill();
+        };
       });
-
-      return () => {
-        tween.kill();
-      };
     });
 
-    return () => mm.revert();
+    return () => {
+      cancelled = true;
+      mm.revert();
+    };
   }, { scope: sectionRef, dependencies: [SPONSORS.length] });
 
   // Render the list twice back-to-back for a seamless loop.
