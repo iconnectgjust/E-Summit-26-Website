@@ -30,15 +30,14 @@ const Events = () => {
 
       // Heading timeline
       const headingRange = isMobile
-        ? { start: "top 88%", end: "+=440", scrub: getResponsiveScrub(1.1, context.conditions, { mobile: 0.85 }) }
+        ? { start: "top 88%", end: "+=600", scrub: getResponsiveScrub(1.5, context.conditions, { mobile: 1.15 }) }
         : isTablet
-        ? { start: "top 82%", end: "+=520", scrub: getResponsiveScrub(1.1, context.conditions, { tablet: 0.95 }) }
-        : { start: "top 78%", end: "top 45%", scrub: 1.1 };
+        ? { start: "top 82%", end: "+=700", scrub: getResponsiveScrub(1.5, context.conditions, { tablet: 1.25 }) }
+        : { start: "top 78%", end: "top 30%", scrub: 1.5 };
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".events",
-          scroller: "body",
           fastScrollEnd: true,
           ...headingRange,
         },
@@ -71,10 +70,10 @@ const Events = () => {
       // Each event row gets its own scrubbed timeline so it animates
       // in/out as it individually enters/leaves the viewport.
       const rowRange = isMobile
-        ? { start: "top 92%", end: "+=380", scrub: getResponsiveScrub(1.1, context.conditions, { mobile: 0.85 }) }
+        ? { start: "top 92%", end: "+=520", scrub: getResponsiveScrub(1.5, context.conditions, { mobile: 1.15 }) }
         : isTablet
-        ? { start: "top 88%", end: "+=460", scrub: getResponsiveScrub(1.1, context.conditions, { tablet: 0.95 }) }
-        : { start: "top 85%", end: "top 55%", scrub: 1.1 };
+        ? { start: "top 88%", end: "+=620", scrub: getResponsiveScrub(1.5, context.conditions, { tablet: 1.25 }) }
+        : { start: "top 85%", end: "top 35%", scrub: 1.5 };
 
       gsap.utils.toArray(".event-row").forEach((row) => {
         const isReverse = row.classList.contains("reverse");
@@ -82,7 +81,6 @@ const Events = () => {
         const rowTl = gsap.timeline({
           scrollTrigger: {
             trigger: row,
-            scroller: "body",
             fastScrollEnd: true,
             ...rowRange,
           },
@@ -140,10 +138,10 @@ const Events = () => {
 
       // View-all button
       const viewBtnRange = isMobile
-        ? { start: "top 95%", end: "+=220", scrub: getResponsiveScrub(1, context.conditions, { mobile: 0.75 }) }
+        ? { start: "top 95%", end: "+=300", scrub: getResponsiveScrub(1.3, context.conditions, { mobile: 1 }) }
         : isTablet
-        ? { start: "top 92%", end: "+=280", scrub: getResponsiveScrub(1, context.conditions, { tablet: 0.85 }) }
-        : { start: "top 90%", end: "top 70%", scrub: 1 };
+        ? { start: "top 92%", end: "+=380", scrub: getResponsiveScrub(1.3, context.conditions, { tablet: 1.1 }) }
+        : { start: "top 90%", end: "top 55%", scrub: 1.3 };
 
       gsap.from(".view-btn button", {
         y: 40,
@@ -175,7 +173,7 @@ const Events = () => {
 
         <div className="event-row">
           <div className="event-image">
-            <img src={spotlight} alt="Startup Spotlight" />
+            <img src={spotlight} alt="Startup Spotlight" loading="lazy" decoding="async" />
           </div>
 
           <div className="event-content">
@@ -213,7 +211,7 @@ const Events = () => {
 
         <div className="event-row reverse">
           <div className="event-image">
-            <img src={space} alt="Startup Space" />
+            <img src={space} alt="Startup Space" loading="lazy" decoding="async" />
           </div>
 
           <div className="event-content">

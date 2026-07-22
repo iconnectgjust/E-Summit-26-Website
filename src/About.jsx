@@ -30,7 +30,6 @@ const About = () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".about-section",
-          scroller: "body",
           fastScrollEnd: true,
           ...scrollTriggerVars,
         },
@@ -126,7 +125,7 @@ const About = () => {
           </div>
           <div className="about-content">
             <div className="about-image">
-              <img src={aboutImg} alt="About Image" />
+              <img src={aboutImg} alt="About Image" loading="lazy" decoding="async" />
             </div>
             <div className="about-text">
               <div className="info-card card-1">

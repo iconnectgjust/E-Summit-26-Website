@@ -151,7 +151,7 @@ const Gallery = () => {
                 zIndex: i + 1,
                 yPercent: i === 0 ? 0 : 100,
                 scale: 1,
-                filter: "brightness(1)",
+                opacity: 1,
               });
             });
 
@@ -187,7 +187,7 @@ const Gallery = () => {
                   prevRow,
                   {
                     scale: restScale,
-                    filter: `brightness(${restBrightness})`,
+                    opacity: restBrightness,
                     duration: 1.15,
                     ease: "power1.inOut",
                   },
@@ -250,6 +250,8 @@ const Gallery = () => {
                   <img
                     src={image}
                     alt={`Gallery ${rowIndex * imagesPerGroup + imgIndex + 1}`}
+                    loading={rowIndex === 0 ? "eager" : "lazy"}
+                    decoding="async"
                   />
                 </div>
               ))}

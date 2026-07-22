@@ -66,7 +66,6 @@ const Journey = () => {
       const headTl = gsap.timeline({
         scrollTrigger: {
           trigger: ".journey",
-          scroller: "body",
           fastScrollEnd: true,
           ...headingRange,
         },
@@ -95,7 +94,6 @@ const Journey = () => {
         ease: "none",
         scrollTrigger: {
           trigger: ".timeline",
-          scroller: "body",
           start: "top 70%",
           end: "bottom 60%",
           fastScrollEnd: true,
@@ -116,7 +114,6 @@ const Journey = () => {
         const itemTl = gsap.timeline({
           scrollTrigger: {
             trigger: item,
-            scroller: "body",
             fastScrollEnd: true,
             ...itemRange,
           },
@@ -149,7 +146,6 @@ const Journey = () => {
         ease: "back.out(2)",
         scrollTrigger: {
           trigger: ".timeline-arrow",
-          scroller: "body",
           fastScrollEnd: true,
           ...arrowRange,
         },

@@ -120,7 +120,7 @@ const Sponsors = () => {
           <div className="sponsors-track" ref={trackRef}>
             {loopedSponsors.map((item, i) => (
               <div className="sponsor-card" key={`${item.alt}-${i}`}>
-                <img src={item.src} alt={item.alt} />
+                <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
               </div>
             ))}
           </div>

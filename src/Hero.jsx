@@ -146,7 +146,7 @@ const Hero = () => {
   useEffect(() => {
     const sections = ["about", "events", "gallery", "faqs", "contactus"];
 
-    const handleActiveSection = () => {
+    const measureActiveSection = () => {
       if (window.scrollY < 100) {
         setActiveSection("home");
         return;
@@ -170,8 +170,22 @@ const Hero = () => {
       setActiveSection(current);
     };
 
-    window.addEventListener("scroll", handleActiveSection);
-    return () => window.removeEventListener("scroll", handleActiveSection);
+    // Coalesce to one DOM read/measurement per animation frame instead
+    // of once per scroll event — scroll can fire far more often than
+    // the screen repaints, and each run here reads layout (getBoundingClientRect)
+    // for every section, which is expensive to do that frequently.
+    let ticking = false;
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        measureActiveSection();
+        ticking = false;
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Closes the mobile menu whenever the route changes
@@ -598,7 +612,7 @@ const Hero = () => {
             src={heroVideo}
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
           />
         </div>
 
