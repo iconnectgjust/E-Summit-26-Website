@@ -35,8 +35,9 @@ export const SCROLL_BREAKPOINTS = {
  * Picks a scrub value for the current breakpoint.
  * Desktop keeps whatever value the animation already used.
  * Tablet gets a small bump so the scrub doesn't feel twitchy.
- * Mobile gets a larger scrub (3-5) so short mobile viewports don't
- * cause the scroll-linked animation to snap through in an instant.
+ * Mobile gets a larger scrub (up to 8) so short mobile viewports don't
+ * cause the scroll-linked animation to snap through in an instant, and
+ * the animation visibly lags behind the finger for a slower feel.
  *
  * @param {number} desktopScrub - the existing/desktop scrub value
  * @param {{isMobile:boolean, isTablet:boolean, isDesktop:boolean}} conditions
@@ -45,7 +46,7 @@ export const SCROLL_BREAKPOINTS = {
 export const getResponsiveScrub = (desktopScrub, conditions, overrides = {}) => {
   const { isMobile, isTablet } = conditions;
 
-  if (isMobile) return overrides.mobile ?? Math.min(5, desktopScrub + 2.5);
+  if (isMobile) return overrides.mobile ?? Math.min(8, desktopScrub + 5);
   if (isTablet) return overrides.tablet ?? Math.min(3.5, desktopScrub + 1);
   return desktopScrub;
 };
