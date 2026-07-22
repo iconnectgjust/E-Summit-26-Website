@@ -308,14 +308,40 @@
   color: var(--off-white);
   font-size: 0.8rem;
   font-weight: 300;
-  line-height: 1.3;
+  line-height: 1.45;
+  letter-spacing: 0.15px;
+  opacity: 0.92;
 }
 
 .hero-info .dates {
-  margin-top: calc(var(--hero-gap-sm) + 6px);
+  margin-top: calc(var(--hero-gap-sm) + 10px);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 18px;
+  border: 1px solid rgba(20, 184, 166, 0.45);
+  border-radius: 999px;
+  background: rgba(20, 184, 166, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   color: var(--teal);
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hero-info .dates::before {
+  content: "";
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow:
+    0 0 0 4px rgba(20, 184, 166, 0.18),
+    0 0 8px rgba(20, 184, 166, 0.5);
 }
 
 .cta-btn {
@@ -480,7 +506,9 @@
     font-size: 0.75rem;
   }
   .hero-info .dates {
-    font-size: 0.9rem;
+    font-size: 0.78rem;
+    padding: 6px 16px;
+    gap: 8px;
   }
   .cta-btn {
     margin: calc(var(--hero-gap-md) + 4px) auto 0;
@@ -519,7 +547,9 @@
     font-size: 0.7rem;
   }
   .hero-info .dates {
-    font-size: 0.8rem;
+    font-size: 0.72rem;
+    padding: 5px 14px;
+    gap: 7px;
   }
   .cta-btn {
     padding: clamp(8px, 1.1vh, 12px) clamp(14px, 1.6vw, 20px);
@@ -546,7 +576,13 @@
     font-size: 0.6rem;
   }
   .hero-info .dates {
-    font-size: 0.68rem;
+    font-size: 0.62rem;
+    padding: 4px 12px;
+    gap: 6px;
+  }
+  .hero-info .dates::before {
+    width: 5px;
+    height: 5px;
   }
   .cta-btn {
     padding: clamp(6px, 0.9vh, 9px) clamp(12px, 1.4vw, 16px);
@@ -587,7 +623,13 @@
     font-size: 0.95rem;
   }
   .hero-info .dates {
-    font-size: 1.15rem;
+    font-size: 1rem;
+    padding: 9px 22px;
+    gap: 10px;
+  }
+  .hero-info .dates::before {
+    width: 7px;
+    height: 7px;
   }
   .hero-logo-desktop {
     width: 950px;
@@ -622,7 +664,13 @@
     max-width: 780px;
   }
   .hero-info .dates {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+    padding: 10px 24px;
+    gap: 11px;
+  }
+  .hero-info .dates::before {
+    width: 8px;
+    height: 8px;
   }
   .cta-btn {
     font-size: 1.15rem;

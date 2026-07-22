@@ -119,12 +119,10 @@ const Gallery = () => {
           mm.add(SCROLL_BREAKPOINTS, (context) => {
             const { isMobile, isTablet } = context.conditions;
 
-            // Scroll distance per row-change and how much the covered
-            // row dims/shrinks. Mobile and tablet now get noticeably MORE
-            // scroll distance per row than before (was 0.55 / 0.65), so
-            // the stack transition reads as a slower, deliberate motion
-            // instead of a quick flick.
-            const scrollPerRow = isMobile ? 0.95 : isTablet ? 0.95 : 0.85;
+            // Scroll distance per row-change, trimmed down from before so
+            // the whole gallery doesn't eat up an outsized chunk of the
+            // page's total scroll length.
+            const scrollPerRow = isMobile ? 0.8 : isTablet ? 0.8 : 0.72;
             const restScale = isMobile ? 0.97 : 0.94;
             const restBrightness = isMobile ? 0.85 : 0.75;
 
@@ -135,20 +133,15 @@ const Gallery = () => {
             // user time to actually look at them before the stack starts
             // moving. Expressed as a fraction of a row so it scales with
             // scrollPerRow automatically.
-            const initialHold = isMobile ? 0.55 : isTablet ? 0.55 : 0.5;
+            const initialHold = isMobile ? 0.4 : isTablet ? 0.4 : 0.35;
 
-            // Desktop keeps the original scrub feel. Tablet/mobile get a
-            // MUCH smaller scrub than before (was 2 / 3.5). A large scrub
-            // number tells GSAP to smooth/lag the animation behind the
-            // actual scroll position by that many seconds - on mobile,
-            // combined with momentum/inertial scrolling, that lag is what
-            // made the next image keep sliding up and covering the first
-            // one even after you'd already stopped scrolling (the "peeks
-            // in and overlaps without scrolling" bug). A small scrub keeps
-            // things smooth without that runaway catch-up drift.
-            const scrub = getResponsiveScrub(1, context.conditions, {
-              tablet: 1,
-              mobile: 1,
+            // A slightly higher scrub than before gives the transition a
+            // touch more smoothing/ease, without going high enough to
+            // reintroduce the old "keeps sliding up even after you've
+            // stopped scrolling" catch-up drift on mobile.
+            const scrub = getResponsiveScrub(1.15, context.conditions, {
+              tablet: 1.15,
+              mobile: 1.15,
             });
 
             // Reset rows to their stacked starting position whenever the
@@ -175,6 +168,7 @@ const Gallery = () => {
                 pin: true,
                 scrub,
                 anticipatePin: 1,
+                fastScrollEnd: true,
                 invalidateOnRefresh: true,
               },
             });
@@ -194,13 +188,14 @@ const Gallery = () => {
                   {
                     scale: restScale,
                     filter: `brightness(${restBrightness})`,
-                    duration: 1,
+                    duration: 1.15,
+                    ease: "power1.inOut",
                   },
                   position
                 )
                 .to(
                   row,
-                  { yPercent: 0, duration: 1, ease: "power2.out" },
+                  { yPercent: 0, duration: 1.15, ease: "power2.inOut" },
                   position
                 );
             });

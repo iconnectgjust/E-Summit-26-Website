@@ -17,20 +17,21 @@ const About = () => {
     mm.add(SCROLL_BREAKPOINTS, (context) => {
       const { isMobile, isTablet } = context.conditions;
 
-      // Desktop keeps the exact original values. Tablet/mobile get a
-      // longer, pixel-based scroll distance ("+=") so the timeline has
-      // enough room to play out slowly on shorter viewports, plus a
-      // gentler scrub so it doesn't snap through instantly.
+      // Shortened distances + lower scrub everywhere so the reveal feels
+      // snappy rather than dragging out over a long scroll. Mobile/tablet
+      // also get fastScrollEnd so a quick flick can't leave the tween
+      // lagging/"catching up" a section or two later.
       const scrollTriggerVars = isMobile
-        ? { start: "top 90%", end: "+=620", scrub: getResponsiveScrub(2, context.conditions, { mobile: 1.4 }) }
+        ? { start: "top 90%", end: "+=440", scrub: getResponsiveScrub(1.1, context.conditions, { mobile: 0.85 }) }
         : isTablet
-        ? { start: "top 85%", end: "+=780", scrub: getResponsiveScrub(2, context.conditions, { tablet: 1.4 }) }
-        : { start: "top 75%", end: "top 10%", scrub: 2 };
+        ? { start: "top 85%", end: "+=520", scrub: getResponsiveScrub(1.1, context.conditions, { tablet: 0.95 }) }
+        : { start: "top 78%", end: "top 42%", scrub: 1.1 };
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".about-section",
           scroller: "body",
+          fastScrollEnd: true,
           ...scrollTriggerVars,
         },
       });

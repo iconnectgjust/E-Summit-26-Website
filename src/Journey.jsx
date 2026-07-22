@@ -58,15 +58,16 @@ const Journey = () => {
 
       // Heading
       const headingRange = isMobile
-        ? { start: "top 88%", end: "+=560", scrub: getResponsiveScrub(2, context.conditions, { mobile: 1.4 }) }
+        ? { start: "top 88%", end: "+=440", scrub: getResponsiveScrub(1.1, context.conditions, { mobile: 0.85 }) }
         : isTablet
-        ? { start: "top 82%", end: "+=700", scrub: getResponsiveScrub(2, context.conditions, { tablet: 1.4 }) }
-        : { start: "top 75%", end: "top 20%", scrub: 2 };
+        ? { start: "top 82%", end: "+=520", scrub: getResponsiveScrub(1.1, context.conditions, { tablet: 0.95 }) }
+        : { start: "top 78%", end: "top 45%", scrub: 1.1 };
 
       const headTl = gsap.timeline({
         scrollTrigger: {
           trigger: ".journey",
           scroller: "body",
+          fastScrollEnd: true,
           ...headingRange,
         },
       });
@@ -97,16 +98,17 @@ const Journey = () => {
           scroller: "body",
           start: "top 70%",
           end: "bottom 60%",
-          scrub: getResponsiveScrub(2, context.conditions, { mobile: 1.4, tablet: 1.4 }),
+          fastScrollEnd: true,
+          scrub: getResponsiveScrub(1.1, context.conditions, { mobile: 0.85, tablet: 0.95 }),
         },
       });
 
       // Each timeline item animates in from its side as it enters view
       const itemRange = isMobile
-        ? { start: "top 92%", end: "+=480", scrub: getResponsiveScrub(2, context.conditions, { mobile: 1.4 }) }
+        ? { start: "top 92%", end: "+=380", scrub: getResponsiveScrub(1.1, context.conditions, { mobile: 0.85 }) }
         : isTablet
-        ? { start: "top 88%", end: "+=600", scrub: getResponsiveScrub(2, context.conditions, { tablet: 1.4 }) }
-        : { start: "top 85%", end: "top 45%", scrub: 2 };
+        ? { start: "top 88%", end: "+=460", scrub: getResponsiveScrub(1.1, context.conditions, { tablet: 0.95 }) }
+        : { start: "top 85%", end: "top 60%", scrub: 1.1 };
 
       gsap.utils.toArray(".timeline-item").forEach((item) => {
         const isRight = item.classList.contains("right");
@@ -115,6 +117,7 @@ const Journey = () => {
           scrollTrigger: {
             trigger: item,
             scroller: "body",
+            fastScrollEnd: true,
             ...itemRange,
           },
         });
@@ -134,10 +137,10 @@ const Journey = () => {
       });
 
       const arrowRange = isMobile
-        ? { start: "top 95%", end: "+=300", scrub: getResponsiveScrub(2, context.conditions, { mobile: 1.4 }) }
+        ? { start: "top 95%", end: "+=220", scrub: getResponsiveScrub(1, context.conditions, { mobile: 0.75 }) }
         : isTablet
-        ? { start: "top 92%", end: "+=380", scrub: getResponsiveScrub(2, context.conditions, { tablet: 1.4 }) }
-        : { start: "top 90%", end: "top 60%", scrub: 2 };
+        ? { start: "top 92%", end: "+=280", scrub: getResponsiveScrub(1, context.conditions, { tablet: 0.85 }) }
+        : { start: "top 90%", end: "top 70%", scrub: 1 };
 
       gsap.from(".timeline-arrow", {
         scale: 0,
@@ -147,6 +150,7 @@ const Journey = () => {
         scrollTrigger: {
           trigger: ".timeline-arrow",
           scroller: "body",
+          fastScrollEnd: true,
           ...arrowRange,
         },
       });

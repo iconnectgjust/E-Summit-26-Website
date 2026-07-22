@@ -255,7 +255,7 @@
 
 @media (max-width: 992px) {
   .contact-section {
-    padding: 80px 6%;
+    padding: 80px 7%;
   }
 
   .contact-container {
@@ -294,7 +294,7 @@
 
 @media (max-width: 768px) {
   .contact-section {
-    padding: 65px 20px;
+    padding: 70px 6%;
   }
 
   .contact-container {
@@ -352,7 +352,7 @@
 
 @media (max-width: 480px) {
   .contact-section {
-    padding: 55px 16px;
+    padding: 60px 5%;
   }
 
   .contact-left h2 {

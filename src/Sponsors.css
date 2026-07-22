@@ -87,6 +87,49 @@
     border-radius:10px;
 }
 
+/* 4K / very large screens */
+
+@media (min-width: 1921px) {
+  .sponsors-container {
+    max-width: 1900px;
+    margin: 0 auto;
+  }
+
+  .sponsors-heading span {
+    font-size: 19px;
+  }
+
+  .sponsors-heading h2 {
+    font-size: clamp(5rem, 5.5vw, 7.5rem);
+  }
+
+  .sponsor-card img {
+    height: 220px;
+  }
+
+  .sponsors-track {
+    gap: 40px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .sponsors-container {
+    max-width: 2300px;
+  }
+
+  .sponsors-heading h2 {
+    font-size: 8.5rem;
+  }
+
+  .sponsor-card img {
+    height: 260px;
+  }
+
+  .sponsors-track {
+    gap: 46px;
+  }
+}
+
 @media (max-width:992px){
 
 .sponsors-section{

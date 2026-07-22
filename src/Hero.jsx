@@ -381,15 +381,13 @@ const Hero = () => {
       mm.add(SCROLL_BREAKPOINTS, (context) => {
           const { isDesktop, isTablet } = context.conditions;
           const vh = window.innerHeight;
-          // Desktop distance/scrub are untouched. Tablet/mobile get an
-          // even longer pinned scroll distance (relative to their own
-          // viewport) plus a gentler scrub, so the pin+zoom takes its
-          // time on shorter mobile screens instead of finishing almost
-          // instantly.
-          const distance = isDesktop ? vh * 3 : isTablet ? vh * 2.4 : vh * 2.8;
-          const scrub = getResponsiveScrub(1, context.conditions, {
-            tablet: 1.3,
-            mobile: 1.3,
+          // Shortened across the board so the hero pin resolves within
+          // roughly a scroll or two instead of eating up several full
+          // screens of scrolling before the rest of the page appears.
+          const distance = isDesktop ? vh * 1.4 : isTablet ? vh * 1.2 : vh * 1.3;
+          const scrub = getResponsiveScrub(0.8, context.conditions, {
+            tablet: 0.9,
+            mobile: 0.9,
           });
 
           const scrubTl = gsap.timeline({

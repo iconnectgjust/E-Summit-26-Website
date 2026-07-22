@@ -55,8 +55,7 @@
   margin-top: 50px;
   display: grid;
   grid-template-columns: 1fr auto;
-  align-items: start;
-  row-gap: 28px;
+  align-items: center;
 }
 
 .footer-socials {
@@ -88,6 +87,22 @@
   color: #003d39;
   font-size: 14px;
   font-weight: 500;
+}
+
+/* Big wordmark banner across the bottom of the footer */
+
+.footer-brand {
+  width: 100%;
+  margin-top: clamp(30px, 6vw, 60px);
+  line-height: 0;
+}
+
+.footer-logo-big {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 1400px;
+  margin: 0;
 }
 
 /* 4K */
@@ -129,6 +144,16 @@
   .footer-bottom p {
     font-size: 17px;
   }
+
+  .footer-brand {
+    max-width: 1900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-logo-big {
+    max-width: 1700px;
+  }
 }
 
 @media (min-width: 2560px) {
@@ -144,6 +169,14 @@
   .footer-column p,
   .footer-column li {
     font-size: 19px;
+  }
+
+  .footer-brand {
+    max-width: 2300px;
+  }
+
+  .footer-logo-big {
+    max-width: 2000px;
   }
 }
 
@@ -220,5 +253,8 @@
     height: 32px;
     font-size: 14px;
   }
-}
 
+  .footer-brand {
+    margin-top: 24px;
+  }
+}

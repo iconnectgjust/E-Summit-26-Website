@@ -10,6 +10,7 @@ import {
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import logo from "./assets/footerlogo.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -70,6 +71,17 @@ const Footer = () => {
         scrollTrigger: {
           trigger: footerRef.current,
           start: "top 92%",
+        },
+      });
+
+      gsap.from(".footer-logo-big", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top 85%",
         },
       });
     }, footerRef);
@@ -180,6 +192,10 @@ const Footer = () => {
 
         <p>Made with &lt;3 by Team iConnect</p>
 
+      </div>
+
+      <div className="footer-brand">
+        <img src={logo} className="footer-logo-big" alt="E-Summit'26" />
       </div>
 
     </footer>
