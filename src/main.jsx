@@ -18,7 +18,11 @@ const isTouchDevice =
 const isSmallViewport = window.matchMedia("(max-width: 992px)").matches
 
 if (isTouchDevice || isSmallViewport) {
-  ScrollTrigger.normalizeScroll(true)
+  // momentum controls how far/fast a touch flick carries the scroll.
+  // GSAP's default (~3) reads as fast on most phones; dropping it
+  // gives noticeably slower, heavier-feeling mobile scrolling while
+  // still fixing the address-bar resize jank normalizeScroll exists for.
+  ScrollTrigger.normalizeScroll({ momentum: 1.2 })
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
