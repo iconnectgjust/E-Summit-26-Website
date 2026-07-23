@@ -265,6 +265,10 @@
 
 @media (max-width: 768px) {
 
+  .journey::before{
+    display:none;
+  }
+
   .journey{
     padding:70px 6%;
   }

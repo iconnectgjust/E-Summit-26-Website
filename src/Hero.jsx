@@ -8,7 +8,10 @@ import "./Hero.css";
 import logo from "./assets/ESlogo.png";
 import logoMobile from "./assets/ESlogoMobile.png";
 import heroVideo from "./assets/animated video mountain.mp4";
-import { SCROLL_BREAKPOINTS, getResponsiveScrub } from "./utils/scrollBreakpoints";
+import {
+  SCROLL_BREAKPOINTS,
+  getResponsiveScrub,
+} from "./utils/scrollBreakpoints";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -393,48 +396,47 @@ const Hero = () => {
       const mm = gsap.matchMedia();
 
       mm.add(SCROLL_BREAKPOINTS, (context) => {
-          const { isDesktop, isTablet } = context.conditions;
-          const vh = window.innerHeight;
-          // Shortened across the board so the hero pin resolves within
-          // roughly a scroll or two instead of eating up several full
-          // screens of scrolling before the rest of the page appears.
-          const distance = isDesktop ? vh * 1.4 : isTablet ? vh * 1.2 : vh * 1.3;
-          const scrub = getResponsiveScrub(0.8, context.conditions, {
-            tablet: 0.9,
-            mobile: 0.9,
-          });
+        const { isDesktop, isTablet } = context.conditions;
+        const vh = window.innerHeight;
+        // Shortened across the board so the hero pin resolves within
+        // roughly a scroll or two instead of eating up several full
+        // screens of scrolling before the rest of the page appears.
+        const distance = isDesktop ? vh * 1.4 : isTablet ? vh * 1.2 : vh * 1.3;
+        const scrub = getResponsiveScrub(0.8, context.conditions, {
+          tablet: 0.9,
+          mobile: 0.9,
+        });
 
-          const scrubTl = gsap.timeline({
-            scrollTrigger: {
-              id: "hero-pin",
-              trigger: heroRef.current,
-              start: "top top",
-              end: `+=${distance}`,
-              scrub,
-              pin: true,
-              pinSpacing: true,
-              anticipatePin: 1,
-              fastScrollEnd: true,
-              invalidateOnRefresh: true,
-            },
-          });
+        const scrubTl = gsap.timeline({
+          scrollTrigger: {
+            id: "hero-pin",
+            trigger: heroRef.current,
+            start: "top top",
+            end: `+=${distance}`,
+            scrub,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            fastScrollEnd: true,
+            invalidateOnRefresh: true,
+          },
+        });
 
-          scrubTl
-            .to(
-              ".hero-bg-video",
-              { scale: 1.08, duration: 0.7, ease: "power1.out" },
-              0,
-            )
-            .to(
-              ".hero-overlay-dark",
-              { opacity: 0.72, duration: 0.7, ease: "power1.out" },
-              0,
-            )
-            .to({}, { duration: 0.3 });
+        scrubTl
+          .to(
+            ".hero-bg-video",
+            { scale: 1.08, duration: 0.7, ease: "power1.out" },
+            0,
+          )
+          .to(
+            ".hero-overlay-dark",
+            { opacity: 0.72, duration: 0.7, ease: "power1.out" },
+            0,
+          )
+          .to({}, { duration: 0.3 });
 
-          return () => scrubTl.kill(true);
-        },
-      );
+        return () => scrubTl.kill(true);
+      });
 
       const refresh = () => ScrollTrigger.refresh();
       const video = videoRef.current;
@@ -536,18 +538,21 @@ const Hero = () => {
 
         <ul className={`links ${menuOpen ? "active" : ""}`}>
           <li>
-            <Link to="/" className={activeSection === "home" ? "active" : ""}
-            onClick={(e) => {
-              e.preventDefault();
+            <Link
+              to="/"
+              className={activeSection === "home" ? "active" : ""}
+              onClick={(e) => {
+                e.preventDefault();
 
-              if (location.pathname === "/") {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              } else {
-                window.location.href = "/";
-              }
+                if (location.pathname === "/") {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                } else {
+                  window.location.href = "/";
+                }
 
-              setMenuOpen(false);
-            }}>
+                setMenuOpen(false);
+              }}
+            >
               Home
             </Link>
           </li>
@@ -644,10 +649,15 @@ const Hero = () => {
                   <span className="arrow-box">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 640 640"
-                      fill="#14B8A6"
+                      width="21"
+                      height="21"
+                      viewBox="0 0 21 21"
+                      fill="none"
                     >
-                      <path d="M598.6 342.6C611.1 330.1 611.1 309.8 598.6 297.3L470.6 169.3C458.1 156.8 437.8 156.8 425.3 169.3C412.8 181.8 412.8 202.1 425.3 214.6L498.7 288L64 288C46.3 288 32 302.3 32 320C32 337.7 46.3 352 64 352L498.7 352L425.3 425.4C412.8 437.9 412.8 458.2 425.3 470.7C437.8 483.2 458.1 483.2 470.6 470.7L598.6 342.7z" />
+                      <path
+                        d="M19.8438 10.24L10.2437 0.640015V6.40001H0.00374794V14.08H10.2437V19.84L19.8438 10.24Z"
+                        fill="#18BC9C"
+                      />
                     </svg>
                   </span>
                 </button>

@@ -56,9 +56,9 @@ const Journey = () => {
     mm.add(SCROLL_BREAKPOINTS, (context) => {
       const { isMobile, isTablet } = context.conditions;
 
-      // Heading
+      // Heading. Mobile plays once instead of scrubbing.
       const headingRange = isMobile
-        ? { start: "top 88%", end: "+=440", scrub: getResponsiveScrub(1.1, context.conditions, { mobile: 0.85 }) }
+        ? { start: "top 88%", toggleActions: "play none none reverse" }
         : isTablet
         ? { start: "top 82%", end: "+=520", scrub: getResponsiveScrub(1.1, context.conditions, { tablet: 0.95 }) }
         : { start: "top 78%", end: "top 45%", scrub: 1.1 };
@@ -101,9 +101,12 @@ const Journey = () => {
         },
       });
 
-      // Each timeline item animates in from its side as it enters view
+      // Each timeline item animates in from its side as it enters view.
+      // Mobile plays once per item instead of scrubbing - 5 items each
+      // running their own continuously-recalculated scrub trigger was the
+      // single biggest source of redundant per-frame work on this page.
       const itemRange = isMobile
-        ? { start: "top 92%", end: "+=380", scrub: getResponsiveScrub(1.1, context.conditions, { mobile: 0.85 }) }
+        ? { start: "top 92%", toggleActions: "play none none reverse" }
         : isTablet
         ? { start: "top 88%", end: "+=460", scrub: getResponsiveScrub(1.1, context.conditions, { tablet: 0.95 }) }
         : { start: "top 85%", end: "top 60%", scrub: 1.1 };
@@ -134,7 +137,7 @@ const Journey = () => {
       });
 
       const arrowRange = isMobile
-        ? { start: "top 95%", end: "+=220", scrub: getResponsiveScrub(1, context.conditions, { mobile: 0.75 }) }
+        ? { start: "top 95%", toggleActions: "play none none reverse" }
         : isTablet
         ? { start: "top 92%", end: "+=280", scrub: getResponsiveScrub(1, context.conditions, { tablet: 0.85 }) }
         : { start: "top 90%", end: "top 70%", scrub: 1 };

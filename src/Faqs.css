@@ -42,17 +42,13 @@
   z-index: 2;
   display: flex;
   justify-content: space-between;
-  gap: 90px;
+  gap: 150px;
 }
 
 .faq-left {
   width: 34%;
   display: flex;
   flex-direction: column;
-}
-
-.faq-right {
-  width: 66%;
 }
 
 /* LEFT */
@@ -63,7 +59,6 @@
   font-weight: 600;
   letter-spacing: 0.5px;
   margin-bottom: 12px;
-  will-change: transform, opacity;
 }
 
 .faq-left h2 {
@@ -72,7 +67,6 @@
   line-height: 0.9;
   font-weight: 800;
   margin-bottom: 120px;
-  will-change: transform, opacity;
 }
 
 /* CARD */
@@ -83,7 +77,6 @@
   background: #f7f2e8;
   border-radius: 10px;
   padding: 24px;
-  will-change: transform, opacity;
 }
 
 .contact-row {
@@ -134,13 +127,13 @@
 .faq-right {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
-  gap: 18px;
+  margin-top: 100px;
+  width: 50%;
+  gap: 20px;
 }
 
 .faq-item{
     background: rgba(0,46,43,.6);
-    will-change: transform, opacity;
 }
 
 .faq-question {
@@ -270,6 +263,7 @@
 
   .faq-left,
   .faq-right {
+    margin-top: 0;
     width: 100%;
   }
 
@@ -286,6 +280,10 @@
 /* Mobile */
 
 @media (max-width: 768px) {
+  .faq-section::before {
+    display: none;
+  }
+
   .faq-section {
     padding: 70px 6%;
   }

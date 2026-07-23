@@ -54,6 +54,7 @@
   width: 100%;
   height: 360px;
   overflow: hidden;
+  contain: layout paint;
 }
 
 .gallery-track {
@@ -70,10 +71,16 @@
   gap: 38px;
   will-change: transform;
   z-index: 0;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .gallery-row:first-child {
   z-index: 10;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .gallery-card {
@@ -84,7 +91,12 @@
   background: #eee2ca;
   cursor: pointer;
   transition: .45s;
-  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gallery-card {
+    will-change: transform;
+  }
 }
 
 .gallery-card img {
@@ -169,6 +181,10 @@
 /* Tablet */
 
 @media (max-width: 992px) {
+  .gallery-section::before {
+    display: none;
+  }
+
   .gallery-section {
     padding: 80px 7% 120px;
   }
@@ -196,6 +212,8 @@
   }
 
   .gallery-row {
+    position: relative;
+    inset: auto;
     grid-template-columns: 1fr;
     gap: 20px;
   }
@@ -213,8 +231,14 @@
   }
 
   .gallery-slider {
-    height: var(--gallery-card-h);
+    height: auto;
     margin-top: 40px;
+  }
+
+  .gallery-track {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 
   .gallery-card {
@@ -243,8 +267,12 @@
   }
 
   .gallery-slider {
-    height: var(--gallery-card-h);
+    height: auto;
     margin-top: 32px;
+  }
+
+  .gallery-track {
+    gap: 16px;
   }
 
   .gallery-card {

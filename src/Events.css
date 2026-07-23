@@ -81,7 +81,7 @@
 .event-image img {
   width: 100%;
   display: block;
-  border-radius: 10px;
+  border-radius: 16px;
   object-fit: cover;
 }
 
@@ -158,6 +158,8 @@
 
 .buttons {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 20px;
 }
 
@@ -322,6 +324,10 @@
 /* Mobile */
 
 @media (max-width: 768px) {
+  .events::before {
+    display: none;
+  }
+
   .events {
     padding: 70px 6%;
   }

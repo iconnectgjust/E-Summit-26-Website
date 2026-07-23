@@ -119,12 +119,54 @@ const Gallery = () => {
           mm.add(SCROLL_BREAKPOINTS, (context) => {
             const { isMobile, isTablet } = context.conditions;
 
+            // On mobile, `pin: true` + a scrubbed stacking timeline is the
+            // single heaviest animation on the whole site (pin forces a
+            // layout recalc of everything below it, every scroll tick).
+            // Phones don't need the desktop "stack" illusion to look good,
+            // so mobile gets a plain, unpinned, one-shot reveal per card
+            // instead - each image just fades/slides in as it enters the
+            // viewport, no pin, no scrub, no continuous per-frame work.
+            if (isMobile) {
+              rows.forEach((row) => {
+                gsap.set(row, {
+                  zIndex: 1,
+                  yPercent: 0,
+                  scale: 1,
+                  opacity: 1,
+                  visibility: "visible",
+                });
+              });
+
+              const cardTriggers = [];
+              gsap.utils.toArray(".gallery-card", track).forEach((card) => {
+                const tween = gsap.from(card, {
+                  y: 40,
+                  opacity: 0,
+                  duration: 0.6,
+                  ease: "power2.out",
+                  scrollTrigger: {
+                    trigger: card,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse",
+                  },
+                });
+                cardTriggers.push(tween);
+              });
+
+              return () => {
+                cardTriggers.forEach((tween) => {
+                  tween.scrollTrigger && tween.scrollTrigger.kill();
+                  tween.kill();
+                });
+              };
+            }
+
             // Scroll distance per row-change, trimmed down from before so
             // the whole gallery doesn't eat up an outsized chunk of the
             // page's total scroll length.
-            const scrollPerRow = isMobile ? 0.8 : isTablet ? 0.8 : 0.72;
-            const restScale = isMobile ? 0.97 : 0.94;
-            const restBrightness = isMobile ? 0.85 : 0.75;
+            const scrollPerRow = isTablet ? 0.8 : 0.72;
+            const restScale = isTablet ? 0.97 : 0.94;
+            const restBrightness = isTablet ? 0.85 : 0.75;
 
             // Extra scroll distance (in the same "row units" as
             // scrollPerRow) reserved at the very start, before any row
@@ -133,25 +175,27 @@ const Gallery = () => {
             // user time to actually look at them before the stack starts
             // moving. Expressed as a fraction of a row so it scales with
             // scrollPerRow automatically.
-            const initialHold = isMobile ? 0.4 : isTablet ? 0.4 : 0.35;
+            const initialHold = isTablet ? 0.4 : 0.35;
 
             // A slightly higher scrub than before gives the transition a
             // touch more smoothing/ease, without going high enough to
             // reintroduce the old "keeps sliding up even after you've
-            // stopped scrolling" catch-up drift on mobile.
+            // stopped scrolling" catch-up drift.
             const scrub = getResponsiveScrub(1.15, context.conditions, {
               tablet: 1.15,
-              mobile: 1.15,
             });
 
             // Reset rows to their stacked starting position whenever the
-            // breakpoint changes.
+            // breakpoint changes. Rows are hidden by default in CSS
+            // (visibility/opacity) so nothing peeks before GSAP runs;
+            // from here on GSAP owns visibility for every row.
             rows.forEach((row, i) => {
               gsap.set(row, {
                 zIndex: i + 1,
                 yPercent: i === 0 ? 0 : 100,
                 scale: 1,
                 opacity: 1,
+                visibility: "visible",
               });
             });
 

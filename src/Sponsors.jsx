@@ -12,15 +12,15 @@ import sponsor4 from "./assets/sponsor4.jpeg";
 import sponsor5 from "./assets/sponsor5.jpeg";
 import sponsor6 from "./assets/sponsor6.jpeg";
 import sponsor7 from "./assets/sponsor7.jpeg";
-import sponsor8 from "./assets/sponsor8.png";
-import sponsor9 from "./assets/sponsor9.png";
-import sponsor10 from "./assets/sponsor10.png";
-import sponsor11 from "./assets/sponsor11.png";
-import sponsor12 from "./assets/sponsor12.png";
-import sponsor13 from "./assets/sponsor13.png";
-import sponsor14 from "./assets/sponsor14.png";
-import sponsor15 from "./assets/sponsor15.png";
-import sponsor16 from "./assets/sponsor16.png";
+import sponsor8 from "./assets/sponsor8.jpeg";
+import sponsor9 from "./assets/sponsor9.jpeg";
+import sponsor10 from "./assets/sponsor10.jpeg";
+import sponsor11 from "./assets/sponsor11.jpeg";
+import sponsor12 from "./assets/sponsor12.jpeg";
+import sponsor13 from "./assets/sponsor13.jpeg";
+import sponsor14 from "./assets/sponsor14.jpeg";
+import sponsor15 from "./assets/sponsor15.jpeg";
+import sponsor16 from "./assets/sponsor16.jpeg";
 
 const SPONSORS = [
   { src: sponsor1, alt: "Sponsor" },
@@ -76,7 +76,7 @@ const Sponsors = () => {
       mm.add(SCROLL_BREAKPOINTS, (context) => {
         const { isMobile, isTablet } = context.conditions;
 
-        const speed = isMobile ? 18 : isTablet ? 35 : 50;
+        const speed = isMobile ? 25 : isTablet ? 45 : 70;
 
         // Track holds the sponsor list twice, so half its scrollWidth
         // equals the width of ONE full set of logos (incl. gaps).
@@ -112,7 +112,7 @@ const Sponsors = () => {
       <div className="sponsors-container">
         {/* Left Side */}
         <div className="sponsors-heading">
-          <span>SPONSORS</span>
+          <span>PAST SPONSORS</span>
           <h2>VALUED PARTNERS</h2>
         </div>
 

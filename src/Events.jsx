@@ -28,9 +28,13 @@ const Events = () => {
     mm.add(SCROLL_BREAKPOINTS, (context) => {
       const { isMobile, isTablet } = context.conditions;
 
-      // Heading timeline
+      // Heading timeline. Mobile uses a one-shot play/reverse instead of a
+      // scrubbed range - a continuously-recalculated scrub trigger is
+      // needless overhead for a heading that only ever needs to fade in
+      // once, and dropping it removes one more per-frame listener from
+      // the busiest part of the scroll.
       const headingRange = isMobile
-        ? { start: "top 88%", end: "+=600", scrub: getResponsiveScrub(1.5, context.conditions, { mobile: 1.15 }) }
+        ? { start: "top 88%", toggleActions: "play none none reverse" }
         : isTablet
         ? { start: "top 82%", end: "+=700", scrub: getResponsiveScrub(1.5, context.conditions, { tablet: 1.25 }) }
         : { start: "top 78%", end: "top 30%", scrub: 1.5 };
@@ -67,10 +71,11 @@ const Events = () => {
         "-=0.4",
       );
 
-      // Each event row gets its own scrubbed timeline so it animates
-      // in/out as it individually enters/leaves the viewport.
+      // Each event row gets its own timeline so it animates in/out as it
+      // individually enters/leaves the viewport. Desktop/tablet keep the
+      // scrubbed feel; mobile plays once on entry instead of scrubbing.
       const rowRange = isMobile
-        ? { start: "top 92%", end: "+=520", scrub: getResponsiveScrub(1.5, context.conditions, { mobile: 1.15 }) }
+        ? { start: "top 92%", toggleActions: "play none none reverse" }
         : isTablet
         ? { start: "top 88%", end: "+=620", scrub: getResponsiveScrub(1.5, context.conditions, { tablet: 1.25 }) }
         : { start: "top 85%", end: "top 35%", scrub: 1.5 };
@@ -138,7 +143,7 @@ const Events = () => {
 
       // View-all button
       const viewBtnRange = isMobile
-        ? { start: "top 95%", end: "+=300", scrub: getResponsiveScrub(1.3, context.conditions, { mobile: 1 }) }
+        ? { start: "top 95%", toggleActions: "play none none reverse" }
         : isTablet
         ? { start: "top 92%", end: "+=380", scrub: getResponsiveScrub(1.3, context.conditions, { tablet: 1.1 }) }
         : { start: "top 90%", end: "top 55%", scrub: 1.3 };
@@ -209,6 +214,8 @@ const Events = () => {
           </div>
         </div>
 
+        <div className="divider"></div>
+
         <div className="event-row reverse">
           <div className="event-image">
             <img src={space} alt="Startup Space" loading="lazy" decoding="async" />
@@ -245,6 +252,8 @@ const Events = () => {
             </div>
           </div>
         </div>
+
+        <div className="divider"></div>
 
         <div className="view-btn">
           <Link to="/all-events">

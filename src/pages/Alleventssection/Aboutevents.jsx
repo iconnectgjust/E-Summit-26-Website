@@ -206,6 +206,8 @@ const Aboutevents = () => {
           </div>
         </div>
 
+        <div className="alldivider"></div>
+
         <div className="allevent-row allreverse">
           <div className="allevent-image">
             <img src={space} alt="Startup Space" />
@@ -242,6 +244,8 @@ const Aboutevents = () => {
             </div>
           </div>
         </div>
+
+        <div className="alldivider"></div>
 
         <div className="allevent-row">
           <div className="allevent-image">
@@ -280,6 +284,8 @@ const Aboutevents = () => {
           </div>
         </div>
 
+        <div className="alldivider"></div>
+
         <div className="allevent-row allreverse">
           <div className="allevent-image">
             <img src={auction} alt="startup auction" />
@@ -316,7 +322,7 @@ const Aboutevents = () => {
           </div>
         </div>
 
-        
+        <div className="alldivider"></div>
       </div>
     </section>
   );

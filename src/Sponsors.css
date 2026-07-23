@@ -1,6 +1,6 @@
 .sponsors-section {
   position: relative;
-  min-height: 100vh;
+  min-height: 85vh;
   padding: 0 9%;
   overflow: hidden;
   display: flex;
@@ -151,6 +151,10 @@
 }
 
 @media (max-width:768px){
+
+.sponsors-section::before{
+    display:none;
+}
 
 .sponsors-section{
     padding:70px 6%;

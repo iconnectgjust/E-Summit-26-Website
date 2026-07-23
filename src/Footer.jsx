@@ -179,6 +179,10 @@ const Footer = () => {
 
       {/* Bottom */}
 
+      <div className="footer-brand">
+        <img src={logo} className="footer-logo-big" alt="E-Summit'26" loading="lazy" decoding="async" />
+      </div>
+
       <div className="footer-bottom">
 
         <div className="footer-socials">
@@ -194,9 +198,7 @@ const Footer = () => {
 
       </div>
 
-      <div className="footer-brand">
-        <img src={logo} className="footer-logo-big" alt="E-Summit'26" loading="lazy" decoding="async" />
-      </div>
+      
 
     </footer>
   );

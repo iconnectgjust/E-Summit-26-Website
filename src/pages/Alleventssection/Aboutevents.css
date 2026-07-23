@@ -90,6 +90,8 @@
 
 .allbuttons {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 20px;
 }
 
@@ -214,6 +216,9 @@
 /* Mobile */
 
 @media (max-width: 768px) {
+  .allevents::before {
+    display: none;
+  }
 
   .allevents {
     padding: 70px 6%;

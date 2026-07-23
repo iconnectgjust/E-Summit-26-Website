@@ -245,7 +245,6 @@ const ContactUs = () => {
                 id="contact-message"
                 placeholder="Type your message here..."
                 autoComplete="off"
-                rows={5}
                 required
                 maxLength={500}
               />

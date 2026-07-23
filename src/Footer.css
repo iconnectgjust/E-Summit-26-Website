@@ -1,6 +1,6 @@
 .footer {
   background: var(--off-white);
-  padding: 60px 7% 35px;
+  padding: 60px 7% 20px;
   border-radius: 18px 18px 0 0;
   margin-top: -20px;
   overflow: hidden;
@@ -93,7 +93,6 @@
 
 .footer-brand {
   width: 100%;
-  margin-top: clamp(30px, 6vw, 60px);
   line-height: 0;
 }
 

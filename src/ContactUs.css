@@ -40,7 +40,8 @@
 }
 
 .contact-form {
-  flex: 0.95;
+  margin-top: 100px;
+  flex: 0.8;
 }
 
 .contact-subtitle {
@@ -62,9 +63,9 @@
 
 .contact-map {
   width: 100%;
-  margin-top: 30px;
-  max-width: 470px;
-  height: 280px;
+  margin-top: 50px;
+  max-width: 480px;
+  height: 330px;
   background: #f7f2e8;
   border: 8px solid #f7f2e8;
   border-radius: 18px;
@@ -274,6 +275,7 @@
   }
 
   .contact-form {
+    margin-top: 0;
     width: 100%;
     max-width: 560px;
     padding: 34px;
@@ -293,6 +295,10 @@
 /* Mobile */
 
 @media (max-width: 768px) {
+  .contact-section::before {
+    display: none;
+  }
+
   .contact-section {
     padding: 70px 6%;
   }
