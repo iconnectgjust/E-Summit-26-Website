@@ -2,8 +2,11 @@ import "./Sponsors.css";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { SCROLL_BREAKPOINTS } from "./utils/scrollBreakpoints";
+
+gsap.registerPlugin(ScrollTrigger);
 
 import sponsor1 from "./assets/sponsor1.jpeg";
 import sponsor2 from "./assets/sponsor2.jpeg";
@@ -83,14 +86,32 @@ const Sponsors = () => {
         const halfWidth = track.scrollWidth / 2;
         const duration = halfWidth / speed;
 
+        // Previously this tween started on mount and ran forever with
+        // no visibility check — constant background main-thread work
+        // for the entire session, even while the user was still
+        // reading the Hero section far above it. Creating it paused
+        // and toggling play/pause via ScrollTrigger's onToggle means
+        // it only ever animates while the section is actually visible.
         const tween = gsap.to(track, {
           xPercent: -50,
           ease: "none",
           duration,
           repeat: -1,
+          paused: true,
+        });
+
+        const trigger = ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          onToggle: (self) => {
+            if (self.isActive) tween.play();
+            else tween.pause();
+          },
         });
 
         return () => {
+          trigger.kill();
           tween.kill();
         };
       });

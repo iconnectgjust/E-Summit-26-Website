@@ -34,80 +34,67 @@ const Hero = () => {
   const videoRef = useRef(null);
   const heroRef = useRef(null);
 
-  // Plays the hero background video forward on scroll-down and
-  // manually reverses it frame-by-frame on scroll-up
+  // Plays the hero background video on a loop while the hero section is
+  // in view, and pauses it once scrolled out of view.
+  //
+  // This used to manually step video.currentTime backward on every
+  // scroll-up animation frame to fake a "reverse" effect. Setting
+  // currentTime forces the browser to seek and decode a new video
+  // frame — doing that on every single scroll tick, on top of the
+  // separate GSAP pin/scale/opacity scrub already running on this same
+  // element (see the pinning useGSAP below), was one of the heaviest,
+  // most-of-the-time-active costs on the whole site and a top suspect
+  // for the universal scroll jank. The video now just plays forward on
+  // a loop — visually still a moving background, but at a small
+  // fraction of the CPU/GPU cost, and it stops entirely (zero cost)
+  // whenever the hero isn't visible.
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    const heroEl = heroRef.current;
+    if (!video || !heroEl) return;
 
     const markLoaded = () => setVideoLoaded(true);
+
+    // If the video is already cached/buffered by the time this effect
+    // runs, 'loadeddata' may have already fired before this listener
+    // was attached — checking readyState directly here closes that
+    // race so the video never gets stuck invisible.
+    if (video.readyState >= 2) markLoaded();
+
     video.addEventListener("loadeddata", markLoaded);
+    video.addEventListener("canplay", markLoaded);
 
-    let reverseRAF = null;
-    let lastFrameTime = null;
-    let lastScrollY = window.pageYOffset;
-    let direction = null;
-
-    // Cancels the manual reverse-playback loop, if running
-    const stopReverse = () => {
-      if (reverseRAF) {
-        cancelAnimationFrame(reverseRAF);
-        reverseRAF = null;
-      }
-      lastFrameTime = null;
+    const attemptPlay = () => {
+      const playPromise = video.play();
+      if (playPromise !== undefined) playPromise.catch(() => {});
     };
 
-    // requestAnimationFrame loop that steps currentTime backward
-    const reverseStep = (timestamp) => {
-      if (lastFrameTime === null) lastFrameTime = timestamp;
-      const deltaSec = (timestamp - lastFrameTime) / 1000;
-      lastFrameTime = timestamp;
+    // Kick off loading/playback right away rather than waiting on the
+    // IntersectionObserver's first callback. The hero is always above
+    // the fold on load, so there's nothing to gain by delaying this,
+    // and routing the very first play() through an async observer
+    // callback (instead of the native autoplay attribute below) was
+    // fragile enough on some mobile browsers/webviews to leave the
+    // video stuck at readyState 0 and never visible.
+    attemptPlay();
 
-      if (video.currentTime <= 0.05) {
-        video.currentTime = 0;
-        stopReverse();
-        direction = null;
-        return;
-      }
-
-      video.currentTime = Math.max(0, video.currentTime - deltaSec);
-      reverseRAF = requestAnimationFrame(reverseStep);
-    };
-
-    const handleVideoEnded = () => {
-      direction = null;
-    };
-    video.addEventListener("ended", handleVideoEnded);
-
-    // Detects scroll direction and switches between forward play / reverse
-    const handleScroll = () => {
-      const currentY = window.pageYOffset;
-      const scrollingDown = currentY > lastScrollY;
-      lastScrollY = currentY;
-
-      if (scrollingDown && direction !== "forward") {
-        stopReverse();
-        direction = "forward";
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {});
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          attemptPlay();
+        } else {
+          video.pause();
         }
-      } else if (!scrollingDown && direction !== "backward") {
-        video.pause();
-        direction = "backward";
-        if (!reverseRAF) {
-          reverseRAF = requestAnimationFrame(reverseStep);
-        }
-      }
-    };
+      },
+      { threshold: 0 },
+    );
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    observer.observe(heroEl);
 
     return () => {
       video.removeEventListener("loadeddata", markLoaded);
-      video.removeEventListener("ended", handleVideoEnded);
-      window.removeEventListener("scroll", handleScroll);
-      stopReverse();
+      video.removeEventListener("canplay", markLoaded);
+      observer.disconnect();
     };
   }, []);
 
@@ -615,9 +602,11 @@ const Hero = () => {
             ref={videoRef}
             className={`hero-bg-video ${videoLoaded ? "is-loaded" : ""}`}
             src={heroVideo}
+            autoPlay
             muted
+            loop
             playsInline
-            preload="metadata"
+            preload="auto"
           />
         </div>
 

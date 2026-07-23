@@ -192,8 +192,6 @@ const ComingSoonEvents = () => {
       return () => {};
     });
 
-    requestAnimationFrame(() => ScrollTrigger.refresh());
-
     return () => mm.revert();
   },
   {

@@ -149,10 +149,32 @@ const Aboutevents = () => {
           );
       });
 
-      ScrollTrigger.refresh();
-
       return () => {};
     });
+
+    // Refresh once, after every event image has actually finished
+    // loading, instead of forcing a full ScrollTrigger.refresh() every
+    // time a breakpoint match fires above. A global refresh recalculates
+    // start/end positions for every ScrollTrigger on the page, so doing
+    // it unconditionally here was needless layout-thrashing overhead.
+    const section = sectionRef.current;
+    const imgs = section ? section.querySelectorAll("img") : [];
+    let loaded = 0;
+    imgs.forEach((img) => {
+      if (img.complete) {
+        loaded++;
+      } else {
+        img.addEventListener(
+          "load",
+          () => {
+            loaded++;
+            if (loaded === imgs.length) ScrollTrigger.refresh();
+          },
+          { once: true },
+        );
+      }
+    });
+    if (imgs.length && loaded === imgs.length) ScrollTrigger.refresh();
 
     return () => mm.revert();
   }, []);
